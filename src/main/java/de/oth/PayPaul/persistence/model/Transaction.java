@@ -28,6 +28,54 @@ public class Transaction {
   @Enumerated(EnumType.STRING)
   private TransactionStatus transactionStatus = TransactionStatus.InProgress;
 
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getPaymentReference() {
+    return paymentReference;
+  }
+
+  public void setPaymentReference(String paymentReference) {
+    this.paymentReference = paymentReference;
+  }
+
+  public int getAmount() {
+    return amount;
+  }
+
+  public void setAmount(int amount) {
+    this.amount = amount;
+  }
+
+  public Account getSender() {
+    return sender;
+  }
+
+  public void setSender(Account sender) {
+    this.sender = sender;
+  }
+
+  public Account getReceiver() {
+    return receiver;
+  }
+
+  public void setReceiver(Account receiver) {
+    this.receiver = receiver;
+  }
+
+  public TransactionStatus getTransactionStatus() {
+    return transactionStatus;
+  }
+
+  public void setTransactionStatus(TransactionStatus transactionStatus) {
+    this.transactionStatus = transactionStatus;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (o == null || getClass() != o.getClass())

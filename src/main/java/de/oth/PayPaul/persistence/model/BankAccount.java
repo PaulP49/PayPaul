@@ -13,4 +13,28 @@ public class BankAccount extends PaymentMethod {
   private String BIC;
 
   private String accountOwner;
+
+  public String getIBAN() {
+    return IBAN;
+  }
+
+  public void setIBAN(String IBAN) {
+    this.IBAN = IBAN;
+  }
+
+  public String getBIC() {
+    return BIC;
+  }
+
+  public void setBIC(String BIC) {
+    this.BIC = BIC;
+  }
+
+  public String getAccountOwner() {
+    return accountOwner;
+  }
+
+  public void setAccountOwner(String accountOwner) {
+    this.accountOwner = accountOwner;
+  }
 }

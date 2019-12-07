@@ -1,5 +1,6 @@
 package de.oth.PayPaul.service.implementation;
 
+import de.oth.PayPaul.persistence.model.Account;
 import de.oth.PayPaul.persistence.repository.AccountRepository;
 import de.oth.PayPaul.service.interfaces.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,4 +14,11 @@ public class AccountService implements IAccountService {
   public void setRepo(AccountRepository accountRepo) {
     this.accountRepo = accountRepo;
   }
+
+  public Account getAccountByEmail(String email) {
+    return accountRepo.findById(email).orElseThrow();
+  }
+
+
+
 }

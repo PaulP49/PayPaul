@@ -13,4 +13,28 @@ public class CreditCard extends PaymentMethod {
   private String cardType;
 
   private int checkNumber;
+
+  public long getCardNumber() {
+    return cardNumber;
+  }
+
+  public void setCardNumber(long cardNumber) {
+    this.cardNumber = cardNumber;
+  }
+
+  public String getCardType() {
+    return cardType;
+  }
+
+  public void setCardType(String cardType) {
+    this.cardType = cardType;
+  }
+
+  public int getCheckNumber() {
+    return checkNumber;
+  }
+
+  public void setCheckNumber(int checkNumber) {
+    this.checkNumber = checkNumber;
+  }
 }
