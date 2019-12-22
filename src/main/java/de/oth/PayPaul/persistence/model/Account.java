@@ -64,6 +64,14 @@ public class Account {
     this.credit = credit;
   }
 
+  public String getPasswordHash() {
+    return passwordHash;
+  }
+
+  public void setPasswordHash(String passwordHash) {
+    this.passwordHash = passwordHash;
+  }
+
   public List<Transaction> getTransactions() {
     return transactions;
   }

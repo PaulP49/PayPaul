@@ -26,6 +26,11 @@ public class AccountService implements IAccountService {
     return accountRepo.findById(email).orElseThrow();
   }
 
+  public void saveNewAccount(Account account) {
+    account.setPasswordHash(passwordEncoder.encode(account.getPasswordHash()));
+    accountRepo.save(account);
+  }
+
   public Account updateAccount(Account account) {
     return account;
   }
