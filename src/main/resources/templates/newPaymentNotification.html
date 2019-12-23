@@ -56,6 +56,7 @@
             display: block;
             position: relative;
             margin: 40px 0px;
+            text-align: left;
         }
         .label-txt {
             position: absolute;
@@ -72,6 +73,7 @@
             border: none;
             outline: none;
             color: var(--white-acc-color);
+            position: initial;
         }
 
         .line-box {
@@ -106,6 +108,13 @@
             text-align: left;
             border-bottom: 50px;
         }
+        .option-picker {
+            background-color: var(--acc-color);
+            color: var(--white-acc-color);
+        }
+        .dropdown-menu {
+            padding: 0 !important;
+        }
     </style>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -134,32 +143,28 @@
             </label>
             <label class="input_label">
                 <p class="label-txt">Aktiviert für folgende Zahlungsmethoden</p>
-                <select class="input selectpicker" multiple>
-                    <option value = "Mastercard">Mastercard</option>
-                    <option value = "Visa">Visa</option>
-                    <option value = "American Express">American Express</option>
-                    <option value = "Discover">Discover</option>
+                <select class="input selectpicker" title="Bitte wählen" data-style="option-picker" data-width="100%" multiple>
+                    <option class="option-picker" value="Mastercard">Mastercard</option>
+                    <option class="option-picker" value="Visa">Visa</option>
+                    <option class="option-picker" value="American Express">American Express</option>
+                    <option class="option-picker" value="Discover">Discover</option>
                 </select>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
             <label class="input_label">
-                <p class="label-txt">Menge (in €)</p>
-                <input type="number" class="input" placeholder="*">
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </label>
-            <label class="input_label">
-                <p class="label-txt">Zahlungsreferenz</p>
-                <input type="text" class="input" placeholder="(optional)">
+                <p class="label-txt">Aktiviert für</p>
+                <select class="input selectpicker" title="Bitte wählen" data-style="option-picker" data-width="100%" multiple>
+                    <option class="option-picker" value="Eingehende Zahlungen">Eingehende Zahlungen</option>
+                    <option class="option-picker" value="Ausgehende Zahlungen">Ausgehende Zahlungen</option>
+                </select>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
             <div class="d-flex justify-content-center mt-3 login_container">
-                <button type="button" name="button" class="btn submit_button">Absenden</button>
+                <button type="button" name="button" class="btn submit_button">Speichern</button>
             </div>
         </form>
     </body>
