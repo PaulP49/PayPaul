@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .loginPage("/login")
             .failureUrl("/login?error=true")
             .failureHandler(getCustomAuthFailureHandler())
-            .defaultSuccessUrl("/home")
+            .defaultSuccessUrl("/paymentMethods")
             .usernameParameter("email")
             .passwordParameter("password_hash")
             .and()
@@ -78,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   public void configure(WebSecurity web) {
     web
             .ignoring()
-            .antMatchers("/resources/**", "/static/**", "/static/css/**", "/static/js/**", "/images/**");
+            .antMatchers("/resources/**", "/static/**", "/static/css/**", "/static/js/**", "/img/**");
   }
 
   @Bean

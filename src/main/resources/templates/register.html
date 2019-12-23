@@ -39,7 +39,6 @@
         }
 
 
-
         .register_form {
             width: 60%;
             margin: 60px auto;
@@ -70,6 +69,19 @@
             outline: none;
             color: var(--white-acc-color);
         }
+
+        @-webkit-keyframes autofill {
+            to {
+                color: var(--white-acc-color);
+                background: var(--acc-color);
+            }
+        }
+
+        .input:-webkit-autofill {
+            -webkit-animation-name: autofill;
+            -webkit-animation-fill-mode: both;
+        }
+
 
         .line-box {
             position: relative;
