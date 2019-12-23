@@ -75,6 +75,17 @@
             color: var(--white-acc-color);
             position: initial;
         }
+        @-webkit-keyframes autofill {
+            to {
+                color: var(--white-acc-color);
+                background: var(--acc-color);
+            }
+        }
+
+        .input:-webkit-autofill {
+            -webkit-animation-name: autofill;
+            -webkit-animation-fill-mode: both;
+        }
 
         .line-box {
             position: relative;

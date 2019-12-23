@@ -71,6 +71,16 @@
             outline: none;
             color: var(--white-acc-color);
         }
+        @-webkit-keyframes autofill {
+            to {
+                color: var(--white-acc-color);
+                background: var(--acc-color);
+            }
+        }
+        .input:-webkit-autofill {
+            -webkit-animation-name: autofill;
+            -webkit-animation-fill-mode: both;
+        }
 
         .line-box {
             position: relative;
@@ -172,8 +182,8 @@
                         </div>
                     </label>
                     <label class="input_label">
-                        <p class="label-txt">Limit pro Transaktion</p>
-                        <input type="text" class="input" placeholder="(optional)">
+                        <p class="label-txt">Limit pro Transaktion (in €)</p>
+                        <input type="number" class="input" placeholder="(optional)">
                         <div class="line-box">
                             <div class="line"></div>
                         </div>
@@ -215,8 +225,8 @@
                         </div>
                     </label>
                     <label class="input_label">
-                        <p class="label-txt">Limit pro Transaktion</p>
-                        <input type="password" class="input" placeholder="(optional)">
+                        <p class="label-txt">Limit pro Transaktion (in €)</p>
+                        <input type="number" class="input" placeholder="(optional)">
                         <div class="line-box">
                             <div class="line"></div>
                         </div>
