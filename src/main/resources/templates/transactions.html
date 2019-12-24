@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>PayPaul | Meine Transaktionen</title>
@@ -10,98 +10,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap2-css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <style>
-        :root {
-            --blue-acc-color: #1D8DEE;
-            --white-acc-color: #FFFBFB;
-            --bg-color: #151E29;
-            --acc-color: #2B3643;
-        }
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background: var(--bg-color) !important;
-        }
-
-        .form_header {
-            color: var(--white-acc-color);
-            text-align: left;
-            padding-top: 10px;
-            padding-bottom: 30px;
-        }
-
-        .material-switch > input[type="checkbox"] {
-            display: none;
-        }
-
-        .material-switch > label {
-            cursor: pointer;
-            height: 0px;
-            position: relative;
-            width: 40px;
-        }
-
-        .material-switch > label::before {
-            background: var(--white-acc-color);
-            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-            content: '';
-            height: 16px;
-            margin-top: -8px;
-            position:absolute;
-            opacity: 0.3;
-            transition: all 0.4s ease-in-out;
-            width: 40px;
-        }
-        .material-switch > label::after {
-            background: var(--white-acc-color);
-            border-radius: 16px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-            content: '';
-            height: 24px;
-            left: -4px;
-            margin-top: -8px;
-            position: absolute;
-            top: -4px;
-            transition: all 0.3s ease-in-out;
-            width: 24px;
-        }
-        .material-switch > input[type="checkbox"]:checked + label::before {
-            background: var(--white-acc-color);
-            opacity: 0.5;
-        }
-        .material-switch > input[type="checkbox"]:checked + label::after {
-            background: var(--blue-acc-color);
-            left: 20px;
-        }
-
-        .outer-container {
-            display: flex;
-            justify-content: center;
-        }
-        .table-container {
-            width: 80%;
-        }
-
-        .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-            color: var(--blue-acc-color);
-            background-color: transparent;
-            border-color: transparent transparent var(--white-acc-color);
-            border-bottom: 4px solid !important;
-            font-size: 20px;
-        }
-        .nav-tabs .nav-link {
-            border: 1px solid transparent;
-            border-top-left-radius: .25rem;
-            border-top-right-radius: .25rem;
-            color: var(--white-acc-color);
-            font-size: 20px;
-        }
-        .column-label {
-            color: var(--blue-acc-color);
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/transactions.css}">
 </head>
 <body>
     <div class="outer-container">
