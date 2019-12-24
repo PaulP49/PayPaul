@@ -1,0 +1,13 @@
+.form_header {
+    color: var(--white-acc-color);
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+.outer-container {
+    display: flex;
+    justify-content: center;
+}
+.table-container {
+    width: 80%;
+}

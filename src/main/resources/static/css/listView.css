@@ -1,0 +1,8 @@
+.list-group {
+    width: 80%;
+}
+.list-group-item {
+    background-color: var(--acc-color);
+    color: var(--white-acc-color);
+    border-color: var(--bg-color);
+}

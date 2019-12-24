@@ -1,0 +1,14 @@
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: var(--blue-acc-color);
+    background-color: transparent;
+    border-color: transparent transparent var(--white-acc-color);
+    border-bottom: 4px solid !important;
+    font-size: 20px;
+}
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: var(--white-acc-color);
+    font-size: 20px;
+}
