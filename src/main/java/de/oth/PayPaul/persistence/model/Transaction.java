@@ -2,6 +2,7 @@ package de.oth.PayPaul.persistence.model;
 
 import org.springframework.data.annotation.AccessType;
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -16,7 +17,8 @@ public class Transaction {
   private String paymentReference;
 
   @Min(value = 0, message = "Amount must be greater than null")
-  private int amount;
+  @Max(value = Integer.MAX_VALUE, message = "Choose a smaller number")
+  private Integer amount;
 
   @ManyToOne
   private Account sender;
@@ -44,11 +46,11 @@ public class Transaction {
     this.paymentReference = paymentReference;
   }
 
-  public int getAmount() {
+  public Integer getAmount() {
     return amount;
   }
 
-  public void setAmount(int amount) {
+  public void setAmount(Integer amount) {
     this.amount = amount;
   }
 

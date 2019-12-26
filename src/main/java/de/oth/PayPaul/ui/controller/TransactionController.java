@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class TransactionController {
 
   @RequestMapping(value = "/transactions", method = RequestMethod.GET)
-  public String transactions(Model model) {
+  public String getTransactionsView(Model model) {
     return "transactions";
   }
 
   @RequestMapping(value = "/sendMoney", method = RequestMethod.GET)
-  public String sendMoney(Model model) {
+  public String getSendMoneyView(Model model) {
     return "sendMoney";
   }
 }

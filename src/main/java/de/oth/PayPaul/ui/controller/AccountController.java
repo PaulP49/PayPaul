@@ -17,7 +17,7 @@ public class AccountController {
   }
 
   @RequestMapping(value = "/register", method = RequestMethod.GET)
-  public String register(Model model) {
+  public String getRegisterView(Model model) {
     return "register";
   }
 }

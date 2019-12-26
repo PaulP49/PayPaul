@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PaymentNotificationController {
 
   @RequestMapping(value = "/paymentNotifications", method = RequestMethod.GET)
-  public String paymentNotifications(Model model) {
+  public String getPaymentNotificationsView(Model model) {
     return "paymentNotifications";
   }
 
   @RequestMapping(value = "/paymentNotifications/addNew", method = RequestMethod.GET)
-  public String newPaymentNotification(Model model) {
+  public String getNewPaymentNotificationView(Model model) {
     return "newPaymentNotification";
   }
 }

@@ -1,7 +1,12 @@
 package de.oth.PayPaul.persistence.model;
 
 import javax.persistence.*;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.AccessType;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.Date;
 import java.util.Objects;
@@ -14,11 +19,12 @@ public class PaymentMethod {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
-  @Temporal(TemporalType.DATE)
-  private Date expiryDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private String expiryDate = null;
 
   @Min(value = 0, message = "Pay Limit must be greater than 0")
-  private int payLimit = Integer.MAX_VALUE;
+  @Max(value = Integer.MAX_VALUE, message = "Choose a smaller number")
+  private Integer payLimit;
 
   private boolean active = true;
 
@@ -32,19 +38,19 @@ public class PaymentMethod {
     this.id = id;
   }
 
-  public Date getExpiryDate() {
+  public String getExpiryDate() {
     return expiryDate;
   }
 
-  public void setExpiryDate(Date expiryDate) {
+  public void setExpiryDate(String expiryDate) {
     this.expiryDate = expiryDate;
   }
 
-  public int getPayLimit() {
+  public Integer getPayLimit() {
     return payLimit;
   }
 
-  public void setPayLimit(int payLimit) {
+  public void setPayLimit(Integer payLimit) {
     this.payLimit = payLimit;
   }
 

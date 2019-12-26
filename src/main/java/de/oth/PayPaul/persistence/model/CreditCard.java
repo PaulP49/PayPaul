@@ -8,17 +8,17 @@ import javax.persistence.Entity;
 @AccessType(AccessType.Type.FIELD)
 public class CreditCard extends PaymentMethod {
 
-  private long cardNumber;
+  private Long cardNumber;
 
   private String cardType;
 
-  private int checkNumber;
+  private Integer checkNumber;
 
-  public long getCardNumber() {
+  public Long getCardNumber() {
     return cardNumber;
   }
 
-  public void setCardNumber(long cardNumber) {
+  public void setCardNumber(Long cardNumber) {
     this.cardNumber = cardNumber;
   }
 
@@ -30,11 +30,11 @@ public class CreditCard extends PaymentMethod {
     this.cardType = cardType;
   }
 
-  public int getCheckNumber() {
+  public Integer getCheckNumber() {
     return checkNumber;
   }
 
-  public void setCheckNumber(int checkNumber) {
+  public void setCheckNumber(Integer checkNumber) {
     this.checkNumber = checkNumber;
   }
 }
