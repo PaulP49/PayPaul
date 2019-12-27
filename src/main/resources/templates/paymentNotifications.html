@@ -19,52 +19,25 @@
             <tr>
                 <th scope="col">Ziel-URL</th>
                 <th scope="col">Für Zahlungsmethoden</th>
-                <th scope="col">Für Zahlungen</th>
+                <th scope="col">Eingehende Zahlungen</th>
+                <th scope="col">Ausgehende Zahlungen</th>
                 <th scope="col">Aktiv</th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
+            <tr th:each="notification : ${notifications}">
+                <td th:text="${notification.targetUrl}">Otto</td>
+                <td th:text="${notification.forPaymentMethods}">Mark</td>
+                <td th:text="${notification.forIncomingPayments}">Otto</td>
+                <td th:text="${notification.forOutgoingPayments}">Otto</td>
                 <td>
-                    <div class="material-switch pull-right">
-                        <input id="someSwitchOptionDefault1" name="someSwitchOption001" type="checkbox"/>
-                        <label for="someSwitchOptionDefault1" class="label-default"></label>
+                    <div th:switch="${notification.active}" class="material-switch pull-right">
+                        <input th:case="${true}" id="someSwitchOptionDefault1" name="someSwitchOption001" type="checkbox"/>
+                        <label th:case="${true}" for="someSwitchOptionDefault1" class="label-default"></label>
+                        <input th:case="${false}" id="someSwitchOptionDefault2" name="someSwitchOption001" type="checkbox"/>
+                        <label th:case="${false}" for="someSwitchOptionDefault2" class="label-default"></label>
                     </div>
-                </td>
-                <td>
-                    <i class="fas fa-edit"></i>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>
-                    <div class="material-switch pull-right">
-                        <input id="someSwitchOptionDefault2" name="someSwitchOption001" type="checkbox"/>
-                        <label for="someSwitchOptionDefault2" class="label-default"></label>
-                    </div>
-                </td>
-                <td>
-                    <i class="fas fa-edit"></i>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>
-                    <div class="material-switch pull-right">
-                        <input id="someSwitchOptionDefault3" name="someSwitchOption001" type="checkbox"/>
-                        <label for="someSwitchOptionDefault3" class="label-default"></label>
-                    </div>
-                </td>
-                <td>
-                    <i class="fas fa-edit"></i>
                 </td>
             </tr>
             </tbody>
