@@ -13,11 +13,12 @@
     <script type="text/javascript" th:src="@{/js/sendMoney.js}"></script>
 </head>
     <body>
-        <form spellcheck="false" class="register_form">
+        <!--/*@thymesVar id="transaction" type="de.oth.PayPaul.persistence.model.Transaction"*/-->
+        <form th:action="@{/sendMoney}" th:object="${transaction}" method="post" spellcheck="false" class="register_form">
             <h3 class="form_header">Geld senden</h3>
             <label class="input_label">
                 <p class="label-txt">Verwende Zahlungsmethode</p>
-                <select class="input">
+                <select class="input" required>
                     <option value="" disabled selected>Bitte wählen</option>
                     <option value = "Mastercard">Mastercard</option>
                     <option value = "Visa">Visa</option>
@@ -30,27 +31,27 @@
             </label>
             <label class="input_label">
                 <p class="label-txt">Empfänger (Emailaddresse)</p>
-                <input type="text" class="input" placeholder="*">
+                <input th:field="*{receiver.email}" type="text" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
             <label class="input_label">
                 <p class="label-txt">Menge (in €)</p>
-                <input type="number" class="input" placeholder="*">
+                <input th:field="*{amount}" type="number" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
             <label class="input_label">
                 <p class="label-txt">Zahlungsreferenz</p>
-                <input type="text" class="input" placeholder="(optional)">
+                <input th:field="*{paymentReference}" type="text" class="input" placeholder="(optional)">
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
             <div class="d-flex justify-content-center mt-3 login_container">
-                <button type="button" name="button" class="btn submit_button">Absenden</button>
+                <button type="Submit" name="Submit" class="btn submit_button">Absenden</button>
             </div>
         </form>
     </body>

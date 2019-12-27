@@ -81,4 +81,9 @@ public class PaymentMethod {
   public int hashCode() {
     return Integer.hashCode(id);
   }
+
+  @Override
+  public String toString() {
+    return getClass().getName();
+  }
 }
