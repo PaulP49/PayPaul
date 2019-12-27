@@ -30,14 +30,14 @@
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <label class="input_label">
                         <p class="label-txt">IBAN</p>
-                        <input th:value="${bankAccount.IBAN}" name="bankAccount.IBAN" type="text" class="input" placeholder="*">
+                        <input th:value="${bankAccount.IBAN}" name="bankAccount.IBAN" type="text" class="input" placeholder="*" required>
                         <div class="line-box">
                             <div class="line"></div>
                         </div>
                     </label>
                     <label class="input_label">
                         <p class="label-txt">BIC</p>
-                        <input th:field="${bankAccount.BIC}" name="bankAccount.BIC" type="text" class="input" placeholder="*">
+                        <input th:field="${bankAccount.BIC}" name="bankAccount.BIC" type="text" class="input" placeholder="*" required>
                         <div class="line-box">
                             <div class="line"></div>
                         </div>
@@ -51,7 +51,7 @@
                     </label>
                     <label class="input_label">
                         <p class="label-txt">Gültig bis</p>
-                        <input th:value="${bankAccount.expiryDate}" name="bankAccount.expiryDate" type="date" class="input" placeholder="*">
+                        <input th:value="${bankAccount.expiryDate}" name="bankAccount.expiryDate" type="date" class="input" placeholder="*" required>
                         <div class="line-box">
                             <div class="line"></div>
                         </div>
@@ -67,14 +67,14 @@
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <label class="input_label">
                         <p class="label-txt">Kreditkartennummmer</p>
-                        <input th:value="${creditCard.cardNumber}" name="creditCard.cardNumber" type="number" class="input" placeholder="*">
+                        <input th:value="${creditCard.cardNumber}" name="creditCard.cardNumber" type="number" class="input" placeholder="*" required>
                         <div class="line-box">
                             <div class="line"></div>
                         </div>
                     </label>
                     <label class="input_label">
                         <p class="label-txt">Kreditkartentyp</p>
-                        <select th:value="${creditCard.cardType}" name="creditCard.cardType" class="input">
+                        <select th:value="${creditCard.cardType}" name="creditCard.cardType" class="input" required>
                             <option value="" disabled selected>Bitte wählen</option>
                             <option value = "Mastercard">Mastercard</option>
                             <option value = "Visa">Visa</option>
@@ -87,14 +87,14 @@
                     </label>
                     <label class="input_label">
                         <p class="label-txt">Prüfnummer</p>
-                        <input th:value="${creditCard.checkNumber}" name="creditCard.checkNumber" type="number" class="input" placeholder="*">
+                        <input th:value="${creditCard.checkNumber}" name="creditCard.checkNumber" type="number" class="input" placeholder="*" required>
                         <div class="line-box">
                             <div class="line"></div>
                         </div>
                     </label>
                     <label class="input_label">
                         <p class="label-txt">Gültig bis</p>
-                        <input th:value="${creditCard.expiryDate}" name="creditCard.expiryDate" type="date" class="input" placeholder="*">
+                        <input th:value="${creditCard.expiryDate}" name="creditCard.expiryDate" type="date" class="input" placeholder="*" required>
                         <div class="line-box">
                             <div class="line"></div>
                         </div>

@@ -16,18 +16,19 @@
     <script type="text/javascript" th:src="@{/js/newPaymentNotification.js}"></script>
 </head>
     <body>
-        <form spellcheck="false" class="register_form">
+        <!--/*@thymesVar id="paymentNotification" type="de.oth.PayPaul.persistence.model.PaymentNotification"*/-->
+        <form th:action="@{/paymentNotifications/addNew}" th:object="${paymentNotification}" method="post" spellcheck="false" class="register_form">
             <h3 class="form_header">Payment Notification hinzufügen</h3>
             <label class="input_label">
                 <p class="label-txt">Ziel-URL</p>
-                <input type="url" class="input" placeholder="*">
+                <input th:field="*{targetUrl}" type="url" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
             <label class="input_label">
                 <p class="label-txt">Aktiviert für folgende Zahlungsmethoden</p>
-                <select class="input selectpicker" title="Bitte wählen" data-style="option-picker" data-width="100%" multiple>
+                <select th:field="*{forPaymentMethods}" class="input selectpicker" title="Bitte wählen" data-style="option-picker" data-width="100%" multiple>
                     <option class="option-picker" value="Mastercard">Mastercard</option>
                     <option class="option-picker" value="Visa">Visa</option>
                     <option class="option-picker" value="American Express">American Express</option>
@@ -39,16 +40,18 @@
             </label>
             <label class="input_label">
                 <p class="label-txt">Aktiviert für</p>
-                <select class="input selectpicker" title="Bitte wählen" data-style="option-picker" data-width="100%" multiple>
-                    <option class="option-picker" value="Eingehende Zahlungen">Eingehende Zahlungen</option>
-                    <option class="option-picker" value="Ausgehende Zahlungen">Ausgehende Zahlungen</option>
+                <select id="paymentDirSelect" class="input selectpicker" title="Bitte wählen" data-style="option-picker" data-width="100%" multiple>
+                    <option class="option-picker" value="Incoming">Eingehende Zahlungen</option>
+                    <option class="option-picker" value="Outgoing">Ausgehende Zahlungen</option>
                 </select>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
+            <input id="inputForIncomingPayments" th:field="*{forIncomingPayments}" type="hidden" value="false">
+            <input id="inputForOutgoingPayments" th:field="*{forOutgoingPayments}" type="hidden" value="false">
             <div class="d-flex justify-content-center mt-3 login_container">
-                <button type="button" name="button" class="btn submit_button">Speichern</button>
+                <button type="Submit" name="Submit" class="btn submit_button">Speichern</button>
             </div>
         </form>
     </body>

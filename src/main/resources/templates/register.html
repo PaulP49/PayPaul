@@ -13,45 +13,46 @@
     <script type="text/javascript" th:src="@{/js/register.js}"></script>
 </head>
     <body>
-        <form spellcheck="false" class="register_form">
+        <!--/*@thymesVar id="account" type="de.oth.PayPaul.persistence.model.Account"*/-->
+        <form th:action="@{/register}" th:object="${account}" method="post" spellcheck="false" class="register_form">
             <h3 class="form_header">Registrieren</h3>
             <label class="input_label">
                 <p class="label-txt">Email</p>
-                <input type="email" class="input" placeholder="*">
+                <input th:field="*{email}" type="email" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
             <label class="input_label">
                 <p class="label-txt">Vorname</p>
-                <input type="text" class="input" placeholder="*">
+                <input th:field="*{firstName}" type="text" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
             <label class="input_label">
                 <p class="label-txt">Nachname</p>
-                <input type="text" class="input" placeholder="*">
+                <input th:field="*{lastName}" type="text" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
             <label class="input_label">
                 <p class="label-txt">Passwort</p>
-                <input type="password" class="input" placeholder="*">
+                <input th:field="*{passwordHash}" type="password" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
             <label class="input_label">
                 <p class="label-txt">Passwort bestätigen</p>
-                <input type="password" class="input" placeholder="*">
+                <input type="password" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
             <div class="d-flex justify-content-center mt-3 login_container">
-                <button type="button" name="button" class="btn submit_button">Bestätigen</button>
+                <button type="Submit" name="Submit" class="btn submit_button">Bestätigen</button>
             </div>
         </form>
     </body>
