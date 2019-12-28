@@ -18,42 +18,38 @@
                 <thead>
                     <tr>
                         <th scope="col">Typ</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Info</th>
+                        <th scope="col">Limit</th>
+                        <th scope="col">Aktiv</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
+                    <tr th:each="bankAccount : ${bankAccounts}">
+                        <td>Bankkonto</td>
+                        <td th:text="${bankAccount.IBAN}"></td>
+                        <td th:text="${bankAccount.payLimit} + '€'"></td>
                         <td>
-                            <label>
-                                <input type="radio" name="optradio">
-                            </label>
+                            <div th:switch="${bankAccount.active}" class="material-switch pull-right">
+                                <input th:case="${true}" th:id="'someSwitchOptionDefault' + ${bankAccount.id}" name="someSwitchOption001" type="checkbox"/>
+                                <label th:case="${true}" th:for="'someSwitchOptionDefault' + ${bankAccount.id}" class="label-default"></label>
+                                <input th:case="${false}" th:id="'someSwitchOptionDefault' + ${bankAccount.id}" name="someSwitchOption001" type="checkbox"/>
+                                <label th:case="${false}" th:for="'someSwitchOptionDefault' + ${bankAccount.id}" class="label-default"></label>
+                            </div>
                         </td>
                     </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>
-                        <label>
-                            <input type="radio" name="optradio">
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>
-                        <label>
-                            <input type="radio" name="optradio">
-                        </label>
-                    </td>
-                </tr>
+                    <tr th:each="creditCard : ${creditCards}">
+                        <td>Kreditkarte</td>
+                        <td th:text="${creditCard.cardNumber}"></td>
+                        <td th:text="${creditCard.payLimit} + '€'"></td>
+                        <td>
+                            <div th:switch="${creditCard.active}" class="material-switch pull-right">
+                                <input th:case="${true}" th:id="'someSwitchOptionDefault' + ${creditCard.id}" name="someSwitchOption001" type="checkbox"/>
+                                <label th:case="${true}" th:for="'someSwitchOptionDefault' + ${creditCard.id}" class="label-default"></label>
+                                <input th:case="${false}" th:id="'someSwitchOptionDefault' + ${creditCard.id}" name="someSwitchOption001" type="checkbox"/>
+                                <label th:case="${false}" th:for="'someSwitchOptionDefault' + ${creditCard.id}" class="label-default"></label>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
