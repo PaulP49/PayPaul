@@ -22,8 +22,12 @@ public class AccountService implements IAccountService {
     this.accountRepo = accountRepo;
   }
 
-  public void createNewAccount(Account account) {
+  public void createNewAccount(Account account) throws Exception {
     account.setPasswordHash(passwordEncoder.encode(account.getPasswordHash()));
-    accountRepo.save(account);
+    if (!accountRepo.existsById(account.getEmail())) {
+      accountRepo.save(account);
+    } else {
+      throw new Exception("Es existiert bereits ein Account mit der angegebenen Email.");
+    }
   }
 }
