@@ -76,24 +76,24 @@ public class Account {
     return transactions;
   }
 
-  public void setTransactions(List<Transaction> transactions) {
-    this.transactions = transactions;
+  public void addTransaction(Transaction transaction) {
+    transactions.add(transaction);
   }
 
   public List<PaymentMethod> getPaymentMethods() {
     return paymentMethods;
   }
 
-  public void setPaymentMethods(List<PaymentMethod> paymentMethods) {
-    this.paymentMethods = paymentMethods;
+  public void addPaymentMethod(PaymentMethod paymentMethod) {
+    paymentMethods.add(paymentMethod);
   }
 
   public List<PaymentNotification> getPaymentNotifications() {
     return paymentNotifications;
   }
 
-  public void setPaymentNotifications(List<PaymentNotification> paymentNotifications) {
-    this.paymentNotifications = paymentNotifications;
+  public void addPaymentNotification(PaymentNotification paymentNotification) {
+    paymentNotifications.add(paymentNotification);
   }
 
   @Override

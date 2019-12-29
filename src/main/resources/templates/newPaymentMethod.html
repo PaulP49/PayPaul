@@ -17,102 +17,106 @@
     <script type="text/javascript" th:src="@{/js/toast.js}"></script>
 </head>
     <body>
-        <!--/*@thymesVar id="bankAccount" type="de.oth.PayPaul.persistence.model.BankAccount"*/-->
-        <!--/*@thymesVar id="creditCard" type="de.oth.PayPaul.persistence.model.CreditCard"*/-->
-        <form th:action="@{/paymentMethods/addNew}" method="post" spellcheck="false" class="register_form">
+        <div class="register_form">
             <h3 class="form_header">Zahlungsmethode hinzufügen</h3>
             <nav>
                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Bankkonto</a>
-                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Kreditkarte</a>
+                    <a class="nav-item nav-link active" id="nav-pane-bankAccount" data-toggle="tab" href="#pane-bankAccount" role="tab" aria-controls="pane-bankAccount" aria-selected="true">Bankkonto</a>
+                    <a class="nav-item nav-link" id="nav-pane-creditCard" data-toggle="tab" href="#pane-creditCard" role="tab" aria-controls="pane-creditCard" aria-selected="false">Kreditkarte</a>
                 </div>
             </nav>
             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <label class="input_label">
-                        <p class="label-txt">IBAN</p>
-                        <input th:value="${bankAccount.IBAN}" name="bankAccount.IBAN" type="text" class="input" placeholder="*" required>
-                        <div class="line-box">
-                            <div class="line"></div>
-                        </div>
-                    </label>
-                    <label class="input_label">
-                        <p class="label-txt">BIC</p>
-                        <input th:field="${bankAccount.BIC}" name="bankAccount.BIC" type="text" class="input" placeholder="*" required>
-                        <div class="line-box">
-                            <div class="line"></div>
-                        </div>
-                    </label>
-                    <label class="input_label">
-                        <p class="label-txt">Kontoinhaber</p>
-                        <input th:value="${bankAccount.accountOwner}" name="bankAccount.accountOwner" type="text" class="input" placeholder="*" required>
-                        <div class="line-box">
-                            <div class="line"></div>
-                        </div>
-                    </label>
-                    <label class="input_label">
-                        <p class="label-txt">Gültig bis</p>
-                        <input th:value="${bankAccount.expiryDate}" name="bankAccount.expiryDate" type="date" class="input" placeholder="*" required>
-                        <div class="line-box">
-                            <div class="line"></div>
-                        </div>
-                    </label>
-                    <label class="input_label">
-                        <p class="label-txt">Limit pro Transaktion (in €)</p>
-                        <input th:value="${bankAccount.payLimit}" name="bankAccount.payLimit" type="number" class="input" placeholder="(optional)">
-                        <div class="line-box">
-                            <div class="line"></div>
-                        </div>
-                    </label>
+                <div class="tab-pane fade show active" id="pane-bankAccount" role="tabpanel" aria-labelledby="nav-pane-bankAccount">
+                    <!--/*@thymesVar id="bankAccount" type="de.oth.PayPaul.persistence.model.BankAccount"*/-->
+                    <form id="bankAccountForm" th:action="@{/paymentMethods/addNewBankAccount}" th:object="${bankAccount}" method="post" spellcheck="false">
+                        <label class="input_label">
+                            <p class="label-txt">IBAN</p>
+                            <input th:field="*{IBAN}" name="IBAN" type="text" class="input" placeholder="*" required>
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </label>
+                        <label class="input_label">
+                            <p class="label-txt">BIC</p>
+                            <input th:field="*{BIC}" name="BIC" type="text" class="input" placeholder="*" required>
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </label>
+                        <label class="input_label">
+                            <p class="label-txt">Kontoinhaber</p>
+                            <input th:field="*{accountOwner}" name="accountOwner" type="text" class="input" placeholder="*">
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </label>
+                        <label class="input_label">
+                            <p class="label-txt">Gültig bis</p>
+                            <input th:field="*{expiryDate}" name="bankAccount.expiryDate" type="date" class="input" placeholder="*" required>
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </label>
+                        <label class="input_label">
+                            <p class="label-txt">Limit pro Transaktion (in €)</p>
+                            <input th:field="*{payLimit}" name="bankAccount.payLimit" type="number" class="input" placeholder="(optional)">
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </label>
+                    </form>
                 </div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <label class="input_label">
-                        <p class="label-txt">Kreditkartennummmer</p>
-                        <input th:value="${creditCard.cardNumber}" name="creditCard.cardNumber" type="number" class="input" placeholder="*" required>
-                        <div class="line-box">
-                            <div class="line"></div>
-                        </div>
-                    </label>
-                    <label class="input_label">
-                        <p class="label-txt">Kreditkartentyp</p>
-                        <select th:value="${creditCard.cardType}" name="creditCard.cardType" class="input" required>
-                            <option value="" disabled selected>Bitte wählen</option>
-                            <option value = "Mastercard">Mastercard</option>
-                            <option value = "Visa">Visa</option>
-                            <option value = "American Express">American Express</option>
-                            <option value = "Discover">Discover</option>
-                        </select>
-                        <div class="line-box">
-                            <div class="line"></div>
-                        </div>
-                    </label>
-                    <label class="input_label">
-                        <p class="label-txt">Prüfnummer</p>
-                        <input th:value="${creditCard.checkNumber}" name="creditCard.checkNumber" type="number" class="input" placeholder="*" required>
-                        <div class="line-box">
-                            <div class="line"></div>
-                        </div>
-                    </label>
-                    <label class="input_label">
-                        <p class="label-txt">Gültig bis</p>
-                        <input th:value="${creditCard.expiryDate}" name="creditCard.expiryDate" type="date" class="input" placeholder="*" required>
-                        <div class="line-box">
-                            <div class="line"></div>
-                        </div>
-                    </label>
-                    <label class="input_label">
-                        <p class="label-txt">Limit pro Transaktion (in €)</p>
-                        <input th:value="${creditCard.payLimit}" name="creditCard.payLimit" type="number" class="input" placeholder="(optional)">
-                        <div class="line-box">
-                            <div class="line"></div>
-                        </div>
-                    </label>
+                <div class="tab-pane fade" id="pane-creditCard" role="tabpanel" aria-labelledby="nav-pane-creditCard">
+                    <!--/*@thymesVar id="creditCard" type="de.oth.PayPaul.persistence.model.CreditCard"*/-->
+                    <form id="creditCardForm" th:action="@{/paymentMethods/addNewCreditCard}" th:object="${creditCard}" method="post" spellcheck="false">
+                        <label class="input_label">
+                            <p class="label-txt">Kreditkartennummmer</p>
+                            <input th:field="*{cardNumber}" name="cardNumber" type="number" class="input" placeholder="*" required>
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </label>
+                        <label class="input_label">
+                            <p class="label-txt">Kreditkartentyp</p>
+                            <select th:field="*{cardType}" name="cardType" class="input" required>
+                                <option value="" disabled selected>Bitte wählen</option>
+                                <option value = "Mastercard">Mastercard</option>
+                                <option value = "Visa">Visa</option>
+                                <option value = "American Express">American Express</option>
+                                <option value = "Discover">Discover</option>
+                            </select>
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </label>
+                        <label class="input_label">
+                            <p class="label-txt">Prüfnummer</p>
+                            <input th:field="*{checkNumber}" name="checkNumber" type="number" class="input" placeholder="*" required>
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </label>
+                        <label class="input_label">
+                            <p class="label-txt">Gültig bis</p>
+                            <input th:field="*{expiryDate}" name="creditCard.expiryDate" type="date" class="input" placeholder="*" required>
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </label>
+                        <label class="input_label">
+                            <p class="label-txt">Limit pro Transaktion (in €)</p>
+                            <input th:field="*{payLimit}" name="creditCard.payLimit" type="number" class="input" placeholder="(optional)">
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </label>
+                    </form>
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-3 login_container">
-                <button type="Submit" name="Submit" class="btn submit_button">Speichern</button>
+                <button type="button" name="button" class="btn submit_button">Speichern</button>
             </div>
-        </form>
+        </div>
         <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
         <!--/*@thymesVar id="errorMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
         <div th:if="${successMessage != null || errorMessage != null}" aria-live="polite" aria-atomic="true">

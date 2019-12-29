@@ -7,4 +7,13 @@ $(document).ready(function(){
         let labelText = $(this).parent().find(".label-txt");
         labelText.removeClass('label-active');
     });
+
+    $(".submit_button").on("click", function() {
+        let activeTab = $('.tab-pane.active');
+        if(activeTab.is('#pane-bankAccount')) {
+            $("#bankAccountForm").submit();
+        } else if (activeTab.is('#pane-creditCard')) {
+            $("#creditCardForm").submit();
+        }
+    });
 });

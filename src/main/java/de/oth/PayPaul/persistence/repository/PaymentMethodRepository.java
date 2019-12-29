@@ -15,4 +15,10 @@ public interface PaymentMethodRepository extends CrudRepository<PaymentMethod, I
 
   @Query("SELECT M FROM Account A LEFT JOIN A.paymentMethods P INNER JOIN BankAccount M ON P.id = M.id WHERE A.email=:email")
   public List<BankAccount> findAllBankAccountsForUser(@Param("email") String email);
+
+  @Query("SELECT CASE WHEN COUNT(M) > 0 THEN TRUE ELSE FALSE END FROM Account A LEFT JOIN A.paymentMethods P INNER JOIN BankAccount M ON P.id = M.id where M.IBAN=:iban and A.email=:email")
+  public boolean bankAccountExists(@Param("email") String email, @Param("iban") String iban);
+
+  @Query("SELECT CASE WHEN COUNT(M) > 0 THEN TRUE ELSE FALSE END FROM Account A LEFT JOIN A.paymentMethods P INNER JOIN CreditCard M ON P.id = M.id where M.cardNumber=:cardNumber and A.email=:email")
+  public boolean creditCardExists(@Param("email") String email, @Param("cardNumber") Long cardNumber);
 }
