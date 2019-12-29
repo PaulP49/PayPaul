@@ -4,69 +4,72 @@
 <head>
     <title>PayPaul | Login</title>
     <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/login.css}"/>
+    <script type="text/javascript" th:src="@{/js/toast.js}"></script>
 </head>
 
 <body>
-<div class="container h-100">
-    <div class="d-flex justify-content-center h-100">
-        <div class="user_card">
-            <div class="d-flex justify-content-center">
-                <div class="brand_logo_container">
-                    <img src="../static/img/PayPaulLogo.jpg" th:src="@{/img/PayPaulLogo.jpg}" class="brand_logo" alt="Logo">
+    <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+            <div class="user_card">
+                <div class="d-flex justify-content-center">
+                    <div class="brand_logo_container">
+                        <img src="../static/img/PayPaulLogo.jpg" th:src="@{/img/PayPaulLogo.jpg}" class="brand_logo" alt="Logo">
+                    </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center form_container">
-                <form th:action="@{/login}" method="post" class="login_form">
-                    <div class="input-group mb-3">
-                        <div class="input-group-append blue_logo">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                <div class="d-flex justify-content-center form_container">
+                    <form th:action="@{/login}" method="post" class="login_form">
+                        <div class="input-group mb-3">
+                            <div class="input-group-append blue_logo">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" name="email" class="form-control input_user" value="" placeholder="Email">
                         </div>
-                        <input type="text" name="email" class="form-control input_user" value="" placeholder="Email">
-                    </div>
-                    <div class="input-group mb-2">
-                        <div class="input-group-append blue_logo">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append blue_logo">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" name="password_hash" class="form-control input_pass" value="" placeholder="Passwort">
                         </div>
-                        <input type="password" name="password_hash" class="form-control input_pass" value="" placeholder="Passwort">
-                    </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customControlInline">
-                            <label class="custom-control-label white_text" for="customControlInline">Angemeldet bleiben</label>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customControlInline">
+                                <label class="custom-control-label white_text" for="customControlInline">Angemeldet bleiben</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-flex justify-content-center mt-3 login_container">
-                        <button type="Submit" name="Submit" class="btn submit_button login_btn">Einloggen</button>
-                    </div>
-                </form>
-            </div>
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <button type="Submit" name="Submit" class="btn submit_button login_btn">Einloggen</button>
+                        </div>
+                    </form>
+                </div>
 
-            <div class="mt-4">
-                <div class="d-flex justify-content-center links white_text">
-                    Noch keinen Account? <a href="#" class="ml-2 blue_text">Jetzt registrieren</a>
-                </div>
-                <div class="d-flex justify-content-center links">
-                    <a href="#" class="blue_text">Passwort vergessen?</a>
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center links white_text">
+                        Noch keinen Account? <a href="#" class="ml-2 blue_text">Jetzt registrieren</a>
+                    </div>
+                    <div class="d-flex justify-content-center links">
+                        <a href="#" class="blue_text">Passwort vergessen?</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
-<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-    <div class="toast" style="position: absolute; top: 0; right: 0;">
-        <div class="toast-header">
-            <img src="..." class="rounded mr-2" alt="...">
-            <strong th:text="${successMessage.headline}" class="mr-auto">ljafkdl</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
+    <!--/*@thymesVar id="errorMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
+    <div th:if="${successMessage != null || errorMessage != null}" aria-live="polite" aria-atomic="true">
+        <div class="toast" th:classappend="${successMessage != null} ? 'toast-success' : 'toast-error'">
+            <div class="toast-header">
+                <i class="fas" th:classappend="${successMessage != null} ? 'fa-check-circle' : 'fa-exclamation-circle'"></i>
+                <strong th:text="${successMessage != null} ? ${successMessage.headline} : ${errorMessage.headline}" class="mr-auto"></strong>
+                <button type="button" class="toast-button close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div th:text="${successMessage != null} ? ${successMessage.detailText} : ${errorMessage.detailText}" class="toast-body"></div>
         </div>
-        <div th:text="${successMessage.detailText}" class="toast-body">dasjldjksl</div>
     </div>
-</div>
 </body>
 </html>

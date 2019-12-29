@@ -9,40 +9,55 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/paymentNotifications.css}">
+    <script type="text/javascript" th:src="@{/js/toast.js}"></script>
 </head>
 <body>
-<div class="outer-container">
-    <div class="table-container">
-        <h3 class="form_header">Meine Payment Notifications</h3>
-        <table class="table table-striped table-dark">
-            <thead>
-            <tr>
-                <th scope="col">Ziel-URL</th>
-                <th scope="col">Für Zahlungsmethoden</th>
-                <th scope="col">Eingehende Zahlungen</th>
-                <th scope="col">Ausgehende Zahlungen</th>
-                <th scope="col">Aktiv</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="notification : ${notifications}">
-                <td th:text="${notification.targetUrl}">Otto</td>
-                <td th:text="${notification.forPaymentMethods}">Mark</td>
-                <td th:text="${notification.forIncomingPayments}">Otto</td>
-                <td th:text="${notification.forOutgoingPayments}">Otto</td>
-                <td>
-                    <div th:switch="${notification.active}" class="material-switch pull-right">
-                        <input th:case="${true}" id="someSwitchOptionDefault1" name="someSwitchOption001" type="checkbox"/>
-                        <label th:case="${true}" for="someSwitchOptionDefault1" class="label-default"></label>
-                        <input th:case="${false}" id="someSwitchOptionDefault2" name="someSwitchOption001" type="checkbox"/>
-                        <label th:case="${false}" for="someSwitchOptionDefault2" class="label-default"></label>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="outer-container">
+        <div class="table-container">
+            <h3 class="form_header">Meine Payment Notifications</h3>
+            <table class="table table-striped table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Ziel-URL</th>
+                    <th scope="col">Für Zahlungsmethoden</th>
+                    <th scope="col">Eingehende Zahlungen</th>
+                    <th scope="col">Ausgehende Zahlungen</th>
+                    <th scope="col">Aktiv</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="notification : ${notifications}">
+                    <td th:text="${notification.targetUrl}">Otto</td>
+                    <td th:text="${notification.forPaymentMethods}">Mark</td>
+                    <td th:text="${notification.forIncomingPayments}">Otto</td>
+                    <td th:text="${notification.forOutgoingPayments}">Otto</td>
+                    <td>
+                        <div th:switch="${notification.active}" class="material-switch pull-right">
+                            <input th:case="${true}" id="someSwitchOptionDefault1" name="someSwitchOption001" type="checkbox"/>
+                            <label th:case="${true}" for="someSwitchOptionDefault1" class="label-default"></label>
+                            <input th:case="${false}" id="someSwitchOptionDefault2" name="someSwitchOption001" type="checkbox"/>
+                            <label th:case="${false}" for="someSwitchOptionDefault2" class="label-default"></label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+    <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
+    <!--/*@thymesVar id="errorMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
+    <div th:if="${successMessage != null || errorMessage != null}" aria-live="polite" aria-atomic="true">
+        <div class="toast" th:classappend="${successMessage != null} ? 'toast-success' : 'toast-error'">
+            <div class="toast-header">
+                <i class="fas" th:classappend="${successMessage != null} ? 'fa-check-circle' : 'fa-exclamation-circle'"></i>
+                <strong th:text="${successMessage != null} ? ${successMessage.headline} : ${errorMessage.headline}" class="mr-auto"></strong>
+                <button type="button" class="toast-button close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div th:text="${successMessage != null} ? ${successMessage.detailText} : ${errorMessage.detailText}" class="toast-body"></div>
+        </div>
+    </div>
 </body>
 </html>

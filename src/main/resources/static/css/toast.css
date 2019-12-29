@@ -1,0 +1,40 @@
+.toast {
+    background-color: var(--acc-color);
+    color: var(--white-acc-color);
+    border: 1px solid;
+    bottom: 30px;
+    right: 10px;
+    position: absolute;
+    opacity: 1;
+    transition: all 0.5s ease-out;
+    max-width: 400px;
+}
+
+.toast-header {
+    border-bottom: 1px solid var(--acc-color);
+    padding: 2px;
+}
+
+.toast-success {
+    border-color: var(--blue-acc-color);
+}
+
+.toast-error {
+    border-color: var(--red-acc-color);
+}
+
+.toast-success .toast-header {
+    background-color: var(--blue-acc-color);
+}
+
+.toast-error .toast-header {
+    background-color: var(--red-acc-color);
+}
+
+.toast-body {
+    padding: 5px;
+}
+
+.toast-button {
+    color: var(--white-acc-color);
+}
