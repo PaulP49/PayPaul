@@ -2,19 +2,24 @@ package de.oth.PayPaul.ui.controller;
 
 import de.oth.PayPaul.persistence.model.Account;
 import de.oth.PayPaul.service.implementation.AccountService;
+import de.oth.PayPaul.service.interfaces.IAccountService;
+import de.oth.PayPaul.ui.model.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AccountController {
-  AccountService accountService;
+  IAccountService accountService;
 
   @Autowired
-  public void setAccountService(AccountService accountService) {
+  public void setInterface(AccountService accountService) {
     this.accountService = accountService;
   }
 
@@ -25,7 +30,16 @@ public class AccountController {
   }
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
-  public String register(Model model, @ModelAttribute("account") Account account) {
-    return "";
+  public String register(@ModelAttribute("account") Account account, RedirectAttributes redirectAttributes) {
+    try {
+      accountService.createNewAccount(account);
+      redirectAttributes.addFlashAttribute("successMessage",
+              new CustomResponse("Account wurde erfolgreich erstellt!", "Sie können sich jetzt mit ihren Logindetails anmelden."));
+      return "redirect:/login";
+    } catch(Exception e) {
+      redirectAttributes.addFlashAttribute("errorMessage",
+              new CustomResponse("Account konnte nicht erstellt werden.", "Fehler:\n" + e.getMessage()));
+      return "redirect:/register";
+    }
   }
 }

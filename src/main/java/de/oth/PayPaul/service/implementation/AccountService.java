@@ -22,16 +22,8 @@ public class AccountService implements IAccountService {
     this.accountRepo = accountRepo;
   }
 
-  public Account getAccountByEmail(String email) {
-    return accountRepo.findById(email).orElseThrow();
-  }
-
-  public void saveNewAccount(Account account) {
+  public void createNewAccount(Account account) {
     account.setPasswordHash(passwordEncoder.encode(account.getPasswordHash()));
     accountRepo.save(account);
-  }
-
-  public Account updateAccount(Account account) {
-    return account;
   }
 }
