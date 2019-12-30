@@ -65,4 +65,18 @@ public class AssetsService implements IAssetsService {
       account.addPaymentMethod(creditCard);
     }
   }
+
+  @Override
+  @Transactional
+  public void activateMethodWithId(String email, int id) {
+    PaymentMethod paymentMethod = paymentMethodRepo.findPaymentMethodByIdFromUser(email, id);
+    paymentMethod.setActive(true);
+  }
+
+  @Override
+  @Transactional
+  public void deactivateMethodWithId(String email, int id) {
+    PaymentMethod paymentMethod = paymentMethodRepo.findPaymentMethodByIdFromUser(email, id);
+    paymentMethod.setActive(false);
+  }
 }

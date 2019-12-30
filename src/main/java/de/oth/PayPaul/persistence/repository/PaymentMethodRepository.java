@@ -21,4 +21,7 @@ public interface PaymentMethodRepository extends CrudRepository<PaymentMethod, I
 
   @Query("SELECT CASE WHEN COUNT(M) > 0 THEN TRUE ELSE FALSE END FROM Account A LEFT JOIN A.paymentMethods P INNER JOIN CreditCard M ON P.id = M.id where M.cardNumber=:cardNumber and A.email=:email")
   public boolean creditCardExists(@Param("email") String email, @Param("cardNumber") Long cardNumber);
+
+  @Query("SELECT P FROM Account A LEFT JOIN A.paymentMethods P where P.id=:id and A.email=:email")
+  public PaymentMethod findPaymentMethodByIdFromUser(@Param("email") String email, @Param("id") int id);
 }

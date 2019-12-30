@@ -6,6 +6,8 @@ import de.oth.PayPaul.service.implementation.AssetsService;
 import de.oth.PayPaul.service.interfaces.IAssetsService;
 import de.oth.PayPaul.ui.model.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -67,5 +70,19 @@ public class AssetsController {
               new CustomResponse("Kreditkarte konnte nicht hinzugefügt werden.", "Fehler: " + e.getMessage()));
       return "redirect:/paymentMethods/addNew";
     }
+  }
+
+  @RequestMapping(value = "/paymentMethods/activateMethod")
+  public ResponseEntity<String> activateMethodWithId(@RequestParam int id) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    assetsService.activateMethodWithId(auth.getName(), id);
+    return new ResponseEntity<>("activated " + id, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/paymentMethods/deactivateMethod")
+  public ResponseEntity<String> deactivateMethodWithId(@RequestParam int id) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    assetsService.deactivateMethodWithId(auth.getName(), id);
+    return new ResponseEntity<>("activated " + id, HttpStatus.OK);
   }
 }
