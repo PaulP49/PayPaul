@@ -32,7 +32,6 @@
                                 <th class="column-label" scope="col">Empfänger</th>
                                 <th class="column-label" scope="col">Zahlungsreferenz</th>
                                 <th class="column-label" scope="col">Menge</th>
-                                <th class="column-label" scope="col">Zahlungsmethode</th>
                                 <th class="column-label" scope="col">Status</th>
                             </tr>
                         </thead>
@@ -40,8 +39,7 @@
                             <tr th:each="transaction : ${transactions.get('outgoing')}">
                                 <td th:text="${transaction.receiver.email}">Otto</td>
                                 <td th:text="${transaction.paymentReference}">Mark</td>
-                                <td th:text="${transaction.amount}">Otto</td>
-                                <td th:text="${transaction.paymentMethod.toString()}">Otto</td>
+                                <td th:text="${transaction.amount} + '€'">Otto</td>
                                 <td th:text="${transaction.transactionStatus}">Otto</td>
                             </tr>
                         </tbody>
@@ -61,7 +59,7 @@
                             <tr th:each="transaction : ${transactions.get('incoming')}">
                                 <td th:text="${transaction.sender.email}">Otto</td>
                                 <td th:text="${transaction.paymentReference}">Mark</td>
-                                <td th:text="${transaction.amount}">Otto</td>
+                                <td th:text="${transaction.amount} + '€'">Otto</td>
                                 <td th:text="${transaction.transactionStatus}">Otto</td>
                             </tr>
                         </tbody>

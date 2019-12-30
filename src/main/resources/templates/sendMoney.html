@@ -18,19 +18,6 @@
         <form th:action="@{/sendMoney}" th:object="${transaction}" method="post" spellcheck="false" class="register_form">
             <h3 class="form_header">Geld senden</h3>
             <label class="input_label">
-                <p class="label-txt">Verwende Zahlungsmethode</p>
-                <select class="input" required>
-                    <option value="" disabled selected>Bitte wählen</option>
-                    <option value = "Mastercard">Mastercard</option>
-                    <option value = "Visa">Visa</option>
-                    <option value = "American Express">American Express</option>
-                    <option value = "Discover">Discover</option>
-                </select>
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </label>
-            <label class="input_label">
                 <p class="label-txt">Empfänger (Emailaddresse)</p>
                 <input th:field="*{receiver.email}" type="text" class="input" placeholder="*" required>
                 <div class="line-box">
@@ -39,7 +26,7 @@
             </label>
             <label class="input_label">
                 <p class="label-txt">Menge (in €)</p>
-                <input th:field="*{amount}" type="number" class="input" placeholder="*" required>
+                <input th:field="*{amount}" type="number" min="1" th:max="${transaction.sender.credit}" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
@@ -54,6 +41,7 @@
             <div class="d-flex justify-content-center mt-3 login_container">
                 <button type="Submit" name="Submit" class="btn submit_button">Absenden</button>
             </div>
+            <input th:type="hidden", th:field="*{sender}" th:value="${transaction.sender}">
         </form>
         <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
         <!--/*@thymesVar id="errorMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->

@@ -30,9 +30,6 @@ public class Transaction {
   @Enumerated(EnumType.STRING)
   private TransactionStatus transactionStatus = TransactionStatus.InProgress;
 
-  @ManyToOne
-  private PaymentMethod paymentMethod;
-
   public int getId() {
     return id;
   }
@@ -81,13 +78,6 @@ public class Transaction {
     this.transactionStatus = transactionStatus;
   }
 
-  public PaymentMethod getPaymentMethod() {
-    return paymentMethod;
-  }
-
-  public void setPaymentMethod(PaymentMethod paymentMethod) {
-    this.paymentMethod = paymentMethod;
-  }
 
   @Override
   public boolean equals(Object o) {

@@ -44,9 +44,11 @@ public class AssetsService implements IAssetsService {
 
   @Override
   @Transactional
-  public void createNewBankAccountForUser(String email, BankAccount bankAccount) {
+  public void createNewBankAccountForUser(String email, BankAccount bankAccount) throws Exception {
     if(!paymentMethodRepo.bankAccountExists(email, bankAccount.getIBAN())) {
-        Account account = accountRepo.findById(email).orElseThrow();
+        Account account = accountRepo.findById(email).orElseThrow(
+                () -> new Exception("Authentifizierungsproblem")
+        );
         paymentMethodRepo.save(bankAccount);
         account.addPaymentMethod(bankAccount);
     }
@@ -54,9 +56,11 @@ public class AssetsService implements IAssetsService {
 
   @Override
   @Transactional
-  public void createNewCreditCardForUser(String email,CreditCard creditCard) {
+  public void createNewCreditCardForUser(String email,CreditCard creditCard) throws Exception {
     if(!paymentMethodRepo.creditCardExists(email, creditCard.getCardNumber())) {
-      Account account = accountRepo.findById(email).orElseThrow();
+      Account account = accountRepo.findById(email).orElseThrow(
+              () -> new Exception("Authentifizierungsproblem")
+      );
       paymentMethodRepo.save(creditCard);
       account.addPaymentMethod(creditCard);
     }

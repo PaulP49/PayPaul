@@ -10,6 +10,6 @@ import java.util.Map;
 public interface IAssetsService {
   public List<CreditCard> getAllCreditCardsForUser(String email);
   public List<BankAccount> getAllBankAccountsForUser(String email);
-  public void createNewBankAccountForUser(String email, BankAccount bankAccount);
-  public void createNewCreditCardForUser(String email, CreditCard creditCard);
+  public void createNewBankAccountForUser(String email, BankAccount bankAccount) throws Exception;
+  public void createNewCreditCardForUser(String email, CreditCard creditCard) throws Exception;
 }

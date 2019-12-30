@@ -23,9 +23,6 @@ public class Account {
 
   private String passwordHash;
 
-  @ManyToMany
-  private List<Transaction> transactions;
-
   @OneToMany
   private List<PaymentMethod> paymentMethods;
 
@@ -60,8 +57,16 @@ public class Account {
     return credit;
   }
 
-  public void setCredit(int credit) {
-    this.credit = credit;
+  public void addCredit(int amount) {
+    credit += amount;
+  }
+
+  public void removeCredit(int amount) throws Exception {
+    if (credit >= amount) {
+      credit -= amount;
+    } else {
+      throw new Exception("Nicht genug Guthaben vorhanden. Bitte aufladen.");
+    }
   }
 
   public String getPasswordHash() {
@@ -70,14 +75,6 @@ public class Account {
 
   public void setPasswordHash(String passwordHash) {
     this.passwordHash = passwordHash;
-  }
-
-  public List<Transaction> getTransactions() {
-    return transactions;
-  }
-
-  public void addTransaction(Transaction transaction) {
-    transactions.add(transaction);
   }
 
   public List<PaymentMethod> getPaymentMethods() {
