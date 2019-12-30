@@ -21,20 +21,8 @@
         <form th:action="@{/paymentNotifications/addNew}" th:object="${paymentNotification}" method="post" spellcheck="false" class="register_form">
             <h3 class="form_header">Payment Notification hinzufügen</h3>
             <label class="input_label">
-                <p class="label-txt">Ziel-URL</p>
+                <p class="label-txt">Ziel-URL (POST-Request)</p>
                 <input th:field="*{targetUrl}" type="url" class="input" placeholder="*" required>
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </label>
-            <label class="input_label">
-                <p class="label-txt">Aktiviert für folgende Zahlungsmethoden</p>
-                <select th:field="*{forPaymentMethods}" class="input selectpicker" title="Bitte wählen" data-style="option-picker" data-width="100%" multiple>
-                    <option class="option-picker" value="Mastercard">Mastercard</option>
-                    <option class="option-picker" value="Visa">Visa</option>
-                    <option class="option-picker" value="American Express">American Express</option>
-                    <option class="option-picker" value="Discover">Discover</option>
-                </select>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>

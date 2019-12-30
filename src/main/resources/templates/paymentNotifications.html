@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/paymentNotifications.css}">
     <script type="text/javascript" th:src="@{/js/toast.js}"></script>
+    <script type="text/javascript" th:src="@{/js/paymentNotifications.js}"></script>
 </head>
 <body>
     <div class="outer-container">
@@ -19,7 +20,6 @@
                 <thead>
                 <tr>
                     <th scope="col">Ziel-URL</th>
-                    <th scope="col">Für Zahlungsmethoden</th>
                     <th scope="col">Eingehende Zahlungen</th>
                     <th scope="col">Ausgehende Zahlungen</th>
                     <th scope="col">Aktiv</th>
@@ -28,17 +28,16 @@
                 </thead>
                 <tbody>
                 <tr th:each="notification : ${notifications}">
-                    <td th:text="${notification.targetUrl}">Otto</td>
-                    <td th:text="${notification.forPaymentMethods}">Mark</td>
-                    <td th:text="${notification.forIncomingPayments}">Otto</td>
-                    <td th:text="${notification.forOutgoingPayments}">Otto</td>
+                    <td th:text="${notification.targetUrl}"></td>
                     <td>
-                        <div th:switch="${notification.active}" class="material-switch pull-right">
-                            <input th:case="${true}" id="someSwitchOptionDefault1" name="someSwitchOption001" type="checkbox"/>
-                            <label th:case="${true}" for="someSwitchOptionDefault1" class="label-default"></label>
-                            <input th:case="${false}" id="someSwitchOptionDefault2" name="someSwitchOption001" type="checkbox"/>
-                            <label th:case="${false}" for="someSwitchOptionDefault2" class="label-default"></label>
-                        </div>
+                        <i class="fas" th:classappend="${notification.forIncomingPayments} ? 'fa-check' : 'fa-times-circle'"></i>
+                    </td>
+                    <td>
+                        <i class="fas" th:classappend="${notification.forOutgoingPayments} ? 'fa-check' : 'fa-times-circle'"></i>
+                    </td>
+                    <td class="material-switch pull-right">
+                        <input th:id="'active-switch-'+${notification.id}" th:name="'active-switch-'+${notification.id}" th:checked="${notification.active}" type="checkbox"/>
+                        <label th:for="'active-switch-'+${notification.id}" class="label-default"></label>
                     </td>
                 </tr>
                 </tbody>

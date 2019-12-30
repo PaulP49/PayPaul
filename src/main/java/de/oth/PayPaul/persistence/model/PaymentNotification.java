@@ -22,9 +22,6 @@ public class PaymentNotification {
 
   private boolean active = true;
 
-  @ManyToMany
-  private List<PaymentMethod> forPaymentMethods;
-
   public int getId() {
     return id;
   }
@@ -63,14 +60,6 @@ public class PaymentNotification {
 
   public void setActive(boolean active) {
     this.active = active;
-  }
-
-  public List<PaymentMethod> getForPaymentMethods() {
-    return forPaymentMethods;
-  }
-
-  public void setForPaymentMethods(List<PaymentMethod> forPaymentMethods) {
-    this.forPaymentMethods = forPaymentMethods;
   }
 
   @Override
