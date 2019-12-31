@@ -14,47 +14,55 @@
     <script type="text/javascript" th:src="@{/js/toast.js}"></script>
 </head>
     <body>
-        <!--/*@thymesVar id="transaction" type="de.oth.PayPaul.persistence.model.Transaction"*/-->
-        <form th:action="@{/sendMoney}" th:object="${transaction}" method="post" spellcheck="false" class="register_form">
-            <h3 class="form_header">Geld senden</h3>
-            <label class="input_label">
-                <p class="label-txt">Empfänger (Emailaddresse)</p>
-                <input th:field="*{receiver.email}" type="text" class="input" placeholder="*" required>
-                <div class="line-box">
-                    <div class="line"></div>
+        <div class="sidenav">
+            <a th:href="@{/transactions}">Transaktionen</a>
+            <a th:href="@{/paymentMethods}">Zahlungsmethoden</a>
+            <a th:href="@{/sendMoney}">Geld senden</a>
+            <a th:href="@{/paymentNotifications}">Payment Notifications</a>
+        </div>
+        <div class="main-content">
+            <!--/*@thymesVar id="transaction" type="de.oth.PayPaul.persistence.model.Transaction"*/-->
+            <form th:action="@{/sendMoney}" th:object="${transaction}" method="post" spellcheck="false" class="register_form">
+                <h3 class="form_header">Geld senden</h3>
+                <label class="input_label">
+                    <p class="label-txt">Empfänger (Emailaddresse)</p>
+                    <input th:field="*{receiver.email}" type="text" class="input" placeholder="*" required>
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                </label>
+                <label class="input_label">
+                    <p class="label-txt">Menge (in €)</p>
+                    <input th:field="*{amount}" type="number" min="1" th:max="${transaction.sender.credit}" class="input" placeholder="*" required>
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                </label>
+                <label class="input_label">
+                    <p class="label-txt">Zahlungsreferenz</p>
+                    <input th:field="*{paymentReference}" type="text" class="input" placeholder="(optional)">
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                </label>
+                <div class="d-flex justify-content-center mt-3 login_container">
+                    <button type="Submit" name="Submit" class="btn submit_button">Absenden</button>
                 </div>
-            </label>
-            <label class="input_label">
-                <p class="label-txt">Menge (in €)</p>
-                <input th:field="*{amount}" type="number" min="1" th:max="${transaction.sender.credit}" class="input" placeholder="*" required>
-                <div class="line-box">
-                    <div class="line"></div>
+                <input th:type="hidden", th:field="*{sender}" th:value="${transaction.sender}">
+            </form>
+            <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
+            <!--/*@thymesVar id="errorMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
+            <div th:if="${successMessage != null || errorMessage != null}" aria-live="polite" aria-atomic="true">
+                <div class="toast" th:classappend="${successMessage != null} ? 'toast-success' : 'toast-error'">
+                    <div class="toast-header">
+                        <i class="fas" th:classappend="${successMessage != null} ? 'fa-check-circle' : 'fa-exclamation-circle'"></i>
+                        <strong th:text="${successMessage != null} ? ${successMessage.headline} : ${errorMessage.headline}" class="mr-auto"></strong>
+                        <button type="button" class="toast-button close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div th:text="${successMessage != null} ? ${successMessage.detailText} : ${errorMessage.detailText}" class="toast-body"></div>
                 </div>
-            </label>
-            <label class="input_label">
-                <p class="label-txt">Zahlungsreferenz</p>
-                <input th:field="*{paymentReference}" type="text" class="input" placeholder="(optional)">
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </label>
-            <div class="d-flex justify-content-center mt-3 login_container">
-                <button type="Submit" name="Submit" class="btn submit_button">Absenden</button>
-            </div>
-            <input th:type="hidden", th:field="*{sender}" th:value="${transaction.sender}">
-        </form>
-        <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
-        <!--/*@thymesVar id="errorMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
-        <div th:if="${successMessage != null || errorMessage != null}" aria-live="polite" aria-atomic="true">
-            <div class="toast" th:classappend="${successMessage != null} ? 'toast-success' : 'toast-error'">
-                <div class="toast-header">
-                    <i class="fas" th:classappend="${successMessage != null} ? 'fa-check-circle' : 'fa-exclamation-circle'"></i>
-                    <strong th:text="${successMessage != null} ? ${successMessage.headline} : ${errorMessage.headline}" class="mr-auto"></strong>
-                    <button type="button" class="toast-button close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div th:text="${successMessage != null} ? ${successMessage.detailText} : ${errorMessage.detailText}" class="toast-body"></div>
             </div>
         </div>
     </body>

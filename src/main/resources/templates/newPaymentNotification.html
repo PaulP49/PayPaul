@@ -17,44 +17,52 @@
     <script type="text/javascript" th:src="@{/js/toast.js}"></script>
 </head>
     <body>
-        <!--/*@thymesVar id="paymentNotification" type="de.oth.PayPaul.persistence.model.PaymentNotification"*/-->
-        <form th:action="@{/paymentNotifications/addNew}" th:object="${paymentNotification}" method="post" spellcheck="false" class="register_form">
-            <h3 class="form_header">Payment Notification hinzufügen</h3>
-            <label class="input_label">
-                <p class="label-txt">Ziel-URL (POST-Request)</p>
-                <input th:field="*{targetUrl}" type="url" class="input" placeholder="*" required>
-                <div class="line-box">
-                    <div class="line"></div>
+        <div class="sidenav">
+            <a th:href="@{/transactions}">Transaktionen</a>
+            <a th:href="@{/paymentMethods}">Zahlungsmethoden</a>
+            <a th:href="@{/sendMoney}">Geld senden</a>
+            <a th:href="@{/paymentNotifications}">Payment Notifications</a>
+        </div>
+        <div class="main-content">
+            <!--/*@thymesVar id="paymentNotification" type="de.oth.PayPaul.persistence.model.PaymentNotification"*/-->
+            <form th:action="@{/paymentNotifications/addNew}" th:object="${paymentNotification}" method="post" spellcheck="false" class="register_form">
+                <h3 class="form_header">Payment Notification hinzufügen</h3>
+                <label class="input_label">
+                    <p class="label-txt">Ziel-URL (POST-Request)</p>
+                    <input th:field="*{targetUrl}" type="url" class="input" placeholder="*" required>
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                </label>
+                <label class="input_label">
+                    <p class="label-txt">Aktiviert für</p>
+                    <select id="paymentDirSelect" class="input selectpicker" title="Bitte wählen" data-style="option-picker" data-width="100%" multiple>
+                        <option class="option-picker" value="Incoming">Eingehende Zahlungen</option>
+                        <option class="option-picker" value="Outgoing">Ausgehende Zahlungen</option>
+                    </select>
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                </label>
+                <input id="inputForIncomingPayments" th:field="*{forIncomingPayments}" type="hidden" value="false">
+                <input id="inputForOutgoingPayments" th:field="*{forOutgoingPayments}" type="hidden" value="false">
+                <div class="d-flex justify-content-center mt-3 login_container">
+                    <button type="Submit" name="Submit" class="btn submit_button">Speichern</button>
                 </div>
-            </label>
-            <label class="input_label">
-                <p class="label-txt">Aktiviert für</p>
-                <select id="paymentDirSelect" class="input selectpicker" title="Bitte wählen" data-style="option-picker" data-width="100%" multiple>
-                    <option class="option-picker" value="Incoming">Eingehende Zahlungen</option>
-                    <option class="option-picker" value="Outgoing">Ausgehende Zahlungen</option>
-                </select>
-                <div class="line-box">
-                    <div class="line"></div>
+            </form>
+            <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
+            <!--/*@thymesVar id="errorMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
+            <div th:if="${successMessage != null || errorMessage != null}" aria-live="polite" aria-atomic="true">
+                <div class="toast" th:classappend="${successMessage != null} ? 'toast-success' : 'toast-error'">
+                    <div class="toast-header">
+                        <i class="fas" th:classappend="${successMessage != null} ? 'fa-check-circle' : 'fa-exclamation-circle'"></i>
+                        <strong th:text="${successMessage != null} ? ${successMessage.headline} : ${errorMessage.headline}" class="mr-auto"></strong>
+                        <button type="button" class="toast-button close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div th:text="${successMessage != null} ? ${successMessage.detailText} : ${errorMessage.detailText}" class="toast-body"></div>
                 </div>
-            </label>
-            <input id="inputForIncomingPayments" th:field="*{forIncomingPayments}" type="hidden" value="false">
-            <input id="inputForOutgoingPayments" th:field="*{forOutgoingPayments}" type="hidden" value="false">
-            <div class="d-flex justify-content-center mt-3 login_container">
-                <button type="Submit" name="Submit" class="btn submit_button">Speichern</button>
-            </div>
-        </form>
-        <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
-        <!--/*@thymesVar id="errorMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
-        <div th:if="${successMessage != null || errorMessage != null}" aria-live="polite" aria-atomic="true">
-            <div class="toast" th:classappend="${successMessage != null} ? 'toast-success' : 'toast-error'">
-                <div class="toast-header">
-                    <i class="fas" th:classappend="${successMessage != null} ? 'fa-check-circle' : 'fa-exclamation-circle'"></i>
-                    <strong th:text="${successMessage != null} ? ${successMessage.headline} : ${errorMessage.headline}" class="mr-auto"></strong>
-                    <button type="button" class="toast-button close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div th:text="${successMessage != null} ? ${successMessage.detailText} : ${errorMessage.detailText}" class="toast-body"></div>
             </div>
         </div>
     </body>
