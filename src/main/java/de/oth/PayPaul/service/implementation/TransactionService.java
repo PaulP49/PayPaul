@@ -1,18 +1,30 @@
 package de.oth.PayPaul.service.implementation;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import de.oth.PayPaul.persistence.model.Account;
+import de.oth.PayPaul.persistence.model.PaymentNotification;
 import de.oth.PayPaul.persistence.model.Transaction;
 import de.oth.PayPaul.persistence.repository.AccountRepository;
+import de.oth.PayPaul.persistence.repository.PaymentNotificationRepository;
 import de.oth.PayPaul.persistence.repository.TransactionRepository;
 import de.oth.PayPaul.service.interfaces.ITransactionService;
 import de.oth.PayPaul.service.model.TransactionDTO;
 import de.oth.PayPaul.service.model.TransactionRequestException;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +33,7 @@ import java.util.Map;
 public class TransactionService implements ITransactionService {
   private TransactionRepository transactionRepo;
   private AccountRepository accountRepo;
+  private PaymentNotificationRepository notificationRepo;
 
   @Autowired
   public void setRepo(TransactionRepository transactionRepo) {
@@ -30,6 +43,11 @@ public class TransactionService implements ITransactionService {
   @Autowired
   public void setAccountRepo(AccountRepository accountRepo) {
     this.accountRepo = accountRepo;
+  }
+
+  @Autowired
+  public void setNotificationRepo(PaymentNotificationRepository notificationRepo) {
+    this.notificationRepo = notificationRepo;
   }
 
   @Override
@@ -57,6 +75,7 @@ public class TransactionService implements ITransactionService {
     receiver.addCredit(transaction.getAmount());
     transaction.setReceiver(receiver);
     transactionRepo.save(transaction);
+    sendNotificationsOnNewTransaction(email, transaction);
   }
 
   @Override
@@ -80,9 +99,30 @@ public class TransactionService implements ITransactionService {
       receiver.addCredit(transaction.getAmount());
 
       transactionRepo.save(transaction1);
+      sendNotificationsOnNewTransaction(auth.getName(), transaction1);
       return transaction1;
     } catch (Exception e) {
       throw new TransactionRequestException(e.getMessage());
+    }
+  }
+
+  public void sendNotificationsOnNewTransaction(String email, Transaction transaction) throws URISyntaxException, IOException, InterruptedException {
+    List<PaymentNotification> notifications = notificationRepo.findAllForUser(email);
+    if (notifications.isEmpty())
+      return;
+
+    HttpClient client = HttpClient.newHttpClient();
+    ObjectWriter writer = new ObjectMapper().writer().withDefaultPrettyPrinter();
+    String jsonTransaction = writer.writeValueAsString(transaction);
+
+    for(PaymentNotification notification : notifications) {
+      if (notification.isActive()) {
+        URL url = notification.getTargetUrl();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(url.toURI())
+                .POST(HttpRequest.BodyPublishers.ofString(jsonTransaction)).build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+      }
     }
   }
 }
