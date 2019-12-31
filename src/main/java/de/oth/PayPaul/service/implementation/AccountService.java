@@ -30,4 +30,8 @@ public class AccountService implements IAccountService {
       throw new Exception("Es existiert bereits ein Account mit der angegebenen Email.");
     }
   }
+
+  public int getCreditByEmail(String email) {
+    return accountRepo.findCreditByEmail(email);
+  }
 }

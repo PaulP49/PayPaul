@@ -4,6 +4,7 @@ import de.oth.PayPaul.persistence.model.BankAccount;
 import de.oth.PayPaul.persistence.model.CreditCard;
 import de.oth.PayPaul.persistence.model.PaymentMethod;
 import de.oth.PayPaul.service.implementation.AssetsService;
+import de.oth.PayPaul.service.interfaces.IAccountService;
 import de.oth.PayPaul.service.interfaces.IAssetsService;
 import de.oth.PayPaul.ui.model.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +26,25 @@ import java.util.List;
 @Controller
 public class AssetsController {
   private IAssetsService assetsService;
+  private IAccountService accountService;
 
   @Autowired
   public void setInterface(AssetsService assetsService) {
     this.assetsService = assetsService;
   }
 
+  @Autowired
+  public void setAccountInterface(IAccountService accountService) {
+    this.accountService = accountService;
+  }
+
   @RequestMapping(value = "/paymentMethods", method = RequestMethod.GET)
   public String getPaymentMethodsView(Model model) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    model.addAttribute("creditCards", assetsService.getAllCreditCardsForUser(auth.getName()));
-    model.addAttribute("bankAccounts", assetsService.getAllBankAccountsForUser(auth.getName()));
+    String email = auth.getName();
+    model.addAttribute("creditCards", assetsService.getAllCreditCardsForUser(email));
+    model.addAttribute("bankAccounts", assetsService.getAllBankAccountsForUser(email));
+    model.addAttribute("credit", accountService.getCreditByEmail(email));
     return "paymentMethods";
   }
 
@@ -43,6 +52,9 @@ public class AssetsController {
   public String getNewPaymentMethodView(Model model) { ;
     model.addAttribute("bankAccount", new BankAccount());
     model.addAttribute("creditCard", new CreditCard());
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    model.addAttribute("credit", accountService.getCreditByEmail(auth.getName()));
     return "newPaymentMethod";
   }
 
@@ -93,8 +105,9 @@ public class AssetsController {
   @RequestMapping(value = "/chargeCredit", method = RequestMethod.GET)
   public String chargeCredit(Model model) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    List<BankAccount> bankAccounts = assetsService.getAllBankAccountsForUser(auth.getName());
-    List<CreditCard> creditCards = assetsService.getAllCreditCardsForUser(auth.getName());
+    String email = auth.getName();
+    List<BankAccount> bankAccounts = assetsService.getAllBankAccountsForUser(email);
+    List<CreditCard> creditCards = assetsService.getAllCreditCardsForUser(email);
     ArrayList<String> paymentMethodSelection = new ArrayList<String>();
     for(BankAccount bankAccount : bankAccounts) {
       String iban = bankAccount.getIBAN();
@@ -106,6 +119,7 @@ public class AssetsController {
     }
     model.addAttribute("paymentMethods", paymentMethodSelection);
     model.addAttribute("amount", 0);
+    model.addAttribute("credit", accountService.getCreditByEmail(email));
     return "chargeCredit";
   }
 

@@ -2,6 +2,7 @@ package de.oth.PayPaul.ui.controller;
 
 import de.oth.PayPaul.persistence.model.PaymentNotification;
 import de.oth.PayPaul.service.implementation.NotificationService;
+import de.oth.PayPaul.service.interfaces.IAccountService;
 import de.oth.PayPaul.service.interfaces.INotificationService;
 import de.oth.PayPaul.ui.model.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +22,32 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class PaymentNotificationController {
 
   private INotificationService notificationService;
+  private IAccountService accountService;
 
   @Autowired
   public void setInterface(NotificationService notificationService) {
     this.notificationService = notificationService;
   }
 
+  @Autowired
+  public void setAccountInterface(IAccountService accountService) {
+    this.accountService = accountService;
+  }
+
   @RequestMapping(value = "/paymentNotifications", method = RequestMethod.GET)
   public String getPaymentNotificationsView(Model model) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    model.addAttribute("notifications", notificationService.getAllNotificationsForUser(auth.getName()));
+    String email = auth.getName();
+    model.addAttribute("notifications", notificationService.getAllNotificationsForUser(email));
+    model.addAttribute("credit", accountService.getCreditByEmail(email));
     return "paymentNotifications";
   }
 
   @RequestMapping(value = "/paymentNotifications/addNew", method = RequestMethod.GET)
   public String getNewPaymentNotificationView(Model model) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     model.addAttribute("paymentNotification", new PaymentNotification());
+    model.addAttribute("credit", accountService.getCreditByEmail(auth.getName()));
     return "newPaymentNotification";
   }
 

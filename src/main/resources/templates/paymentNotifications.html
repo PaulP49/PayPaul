@@ -22,6 +22,7 @@
         <a class="menu-link active-view" th:href="@{/paymentNotifications}">Payment Notifications</a>
         <a class="menu-link" th:href="@{/sendMoney}">Geld senden</a>
         <a class="menu-link" th:href="@{/chargeCredit}">Guthaben aufladen</a>
+        <p class="credit-info" th:text="'Guthaben: ' + ${credit} + '€'"></p>
         <a th:href="@{/logout}" class="logout-link menu-link">Ausloggen</a>
     </div>
     <div class="main-content">

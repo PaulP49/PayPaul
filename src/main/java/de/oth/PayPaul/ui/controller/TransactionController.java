@@ -3,6 +3,7 @@ package de.oth.PayPaul.ui.controller;
 import de.oth.PayPaul.persistence.model.Account;
 import de.oth.PayPaul.persistence.model.Transaction;
 import de.oth.PayPaul.service.implementation.TransactionService;
+import de.oth.PayPaul.service.interfaces.IAccountService;
 import de.oth.PayPaul.service.interfaces.ITransactionService;
 import de.oth.PayPaul.ui.model.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class TransactionController {
 
   ITransactionService transactionService;
+  IAccountService accountService;
 
   @Autowired
   public void setInterface(TransactionService transactionService) {
     this.transactionService = transactionService;
   }
 
+  @Autowired
+  public void setAccountInterface(IAccountService accountService) {
+    this.accountService = accountService;
+  }
+
   @RequestMapping(value = "/transactions", method = RequestMethod.GET)
   public String getTransactionsView(Model model) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     model.addAttribute("transactions", transactionService.getAllTransactionsForUser(auth.getName()));
+    model.addAttribute("credit", accountService.getCreditByEmail(auth.getName()));
     return "transactions";
   }
 
@@ -39,6 +47,7 @@ public class TransactionController {
     transaction.setSender(transactionService.getCurrentUser(auth.getName()));
     transaction.setReceiver(new Account());
     model.addAttribute("transaction", transaction);
+    model.addAttribute("credit", accountService.getCreditByEmail(auth.getName()));
 
     return "sendMoney";
   }

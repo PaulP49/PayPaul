@@ -100,3 +100,15 @@
     border-radius: 50%;
     border: 2px solid var(--white-acc-color);
 }
+
+.credit-info {
+    color: var(--white-acc-color);
+    background-color: var(--bg-color);
+    border: 1px solid var(--white-acc-color);
+    width: fit-content;
+    text-align: center;
+    border-radius: 7px;
+    margin: 35px auto auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
