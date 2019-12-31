@@ -57,14 +57,14 @@ public class PaymentNotificationController {
     }
   }
 
-  @RequestMapping(value = "/paymentNotifications/activateNotification")
+  @RequestMapping(value = "/paymentNotifications/activateNotification", method = RequestMethod.POST)
   public ResponseEntity<String> activateNotificationWithId(@RequestParam int id) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     notificationService.activateNotificationWithId(auth.getName(), id);
     return new ResponseEntity<>("activated " + id, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/paymentNotifications/deactivateNotification")
+  @RequestMapping(value = "/paymentNotifications/deactivateNotification", method = RequestMethod.POST)
   public ResponseEntity<String> deactivateNotificationWithId(@RequestParam int id) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     notificationService.deactivateNotificationWithId(auth.getName(), id);
