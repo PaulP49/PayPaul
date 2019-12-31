@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>PayPaul | Guthaben aufladen</title>
+    <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/chargeCredit.css}">
+    <script type="text/javascript" th:src="@{/js/toast.js}"></script>
+</head>
+<body>
+<div class="sidenav">
+    <a th:href="@{/transactions}">Transaktionen</a>
+    <a th:href="@{/paymentMethods}">Zahlungsmethoden</a>
+    <a th:href="@{/paymentNotifications}">Payment Notifications</a>
+    <a th:href="@{/sendMoney}">Geld senden</a>
+    <a th:href="@{/chargeCredit}">Guthaben aufladen</a>
+</div>
+<div class="main-content">
+    <form th:action="@{/chargeCredit}" method="post" spellcheck="false" class="register_form">
+        <h3 class="form_header">Guthaben aufladen</h3>
+        <label class="input_label">
+            <p class="label-txt">Kreditkartentyp</p>
+            <select name="cardType" class="input" required>
+                <option value="" disabled selected>Bitte wählen</option>
+                <option th:each="i : ${paymentMethods}" th:value="${i}" th:text="${i}"></option>
+            </select>
+            <div class="line-box">
+                <div class="line"></div>
+            </div>
+        </label>
+        <label class="input_label">
+            <p class="label-txt">Menge (in €)</p>
+            <!--/*@thymesVar id="amount" type="int"*/-->
+            <input th:name="amount" type="number" min="1" class="input" placeholder="*" required>
+            <div class="line-box">
+                <div class="line"></div>
+            </div>
+        </label>
+        <div class="d-flex justify-content-center mt-3 login_container">
+            <button type="Submit" name="Submit" class="btn submit_button">Absenden</button>
+        </div>
+    </form>
+    <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
+    <!--/*@thymesVar id="errorMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
+    <div th:if="${successMessage != null || errorMessage != null}" aria-live="polite" aria-atomic="true">
+        <div class="toast" th:classappend="${successMessage != null} ? 'toast-success' : 'toast-error'">
+            <div class="toast-header">
+                <i class="fas" th:classappend="${successMessage != null} ? 'fa-check-circle' : 'fa-exclamation-circle'"></i>
+                <strong th:text="${successMessage != null} ? ${successMessage.headline} : ${errorMessage.headline}" class="mr-auto"></strong>
+                <button type="button" class="toast-button close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div th:text="${successMessage != null} ? ${successMessage.detailText} : ${errorMessage.detailText}" class="toast-body"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

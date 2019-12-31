@@ -14,4 +14,5 @@ public interface IAssetsService {
   public void createNewCreditCardForUser(String email, CreditCard creditCard) throws Exception;
   public void activateMethodWithId(String email, int id);
   public void deactivateMethodWithId(String email, int id);
+  public void chargeCredit(String email, int amount);
 }

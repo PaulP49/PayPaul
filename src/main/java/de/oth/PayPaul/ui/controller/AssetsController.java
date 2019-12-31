@@ -2,6 +2,7 @@ package de.oth.PayPaul.ui.controller;
 
 import de.oth.PayPaul.persistence.model.BankAccount;
 import de.oth.PayPaul.persistence.model.CreditCard;
+import de.oth.PayPaul.persistence.model.PaymentMethod;
 import de.oth.PayPaul.service.implementation.AssetsService;
 import de.oth.PayPaul.service.interfaces.IAssetsService;
 import de.oth.PayPaul.ui.model.CustomResponse;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AssetsController {
@@ -72,17 +76,52 @@ public class AssetsController {
     }
   }
 
-  @RequestMapping(value = "/paymentMethods/activateMethod")
+  @RequestMapping(value = "/paymentMethods/activateMethod", method = RequestMethod.POST)
   public ResponseEntity<String> activateMethodWithId(@RequestParam int id) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     assetsService.activateMethodWithId(auth.getName(), id);
     return new ResponseEntity<>("activated " + id, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/paymentMethods/deactivateMethod")
+  @RequestMapping(value = "/paymentMethods/deactivateMethod", method = RequestMethod.POST)
   public ResponseEntity<String> deactivateMethodWithId(@RequestParam int id) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     assetsService.deactivateMethodWithId(auth.getName(), id);
     return new ResponseEntity<>("activated " + id, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/chargeCredit", method = RequestMethod.GET)
+  public String chargeCredit(Model model) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    List<BankAccount> bankAccounts = assetsService.getAllBankAccountsForUser(auth.getName());
+    List<CreditCard> creditCards = assetsService.getAllCreditCardsForUser(auth.getName());
+    ArrayList<String> paymentMethodSelection = new ArrayList<String>();
+    for(BankAccount bankAccount : bankAccounts) {
+      String iban = bankAccount.getIBAN();
+      paymentMethodSelection.add("Bankkonto IBAN: ***" + iban.substring(iban.length() - 3));
+    }
+    for(CreditCard creditCard : creditCards) {
+      String number = Long.toString(creditCard.getCardNumber());
+      paymentMethodSelection.add(creditCard.getCardType() + " Nr: ***" + number.substring(number.length() - 3));
+    }
+    model.addAttribute("paymentMethods", paymentMethodSelection);
+    model.addAttribute("amount", 0);
+    return "chargeCredit";
+  }
+
+  @RequestMapping(value = "/chargeCredit", method = RequestMethod.POST)
+  public String chargeCredit(@RequestParam("amount") int amount,
+                             RedirectAttributes redirectAttributes) {
+    try {
+      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+      assetsService.chargeCredit(auth.getName(), amount);
+      redirectAttributes.addFlashAttribute("successMessage",
+              new CustomResponse(amount + "€ wurden Ihrem Guthaben gutgeschrieben.", "Das Guthaben kann absofort für Transaktionen verwendet werden."));
+      return "redirect:/transactions";
+    } catch (Exception e) {
+      redirectAttributes.addFlashAttribute("errorMessage",
+              new CustomResponse("Fehler! Guthaben konnte nicht aufgeladen werden.", "Fehler: " + e.getMessage()));
+      return "redirect:/chargeCredit";
+    }
   }
 }

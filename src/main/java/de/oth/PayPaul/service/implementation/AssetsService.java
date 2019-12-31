@@ -79,4 +79,11 @@ public class AssetsService implements IAssetsService {
     PaymentMethod paymentMethod = paymentMethodRepo.findPaymentMethodByIdFromUser(email, id);
     paymentMethod.setActive(false);
   }
+
+  @Override
+  @Transactional
+  public void chargeCredit(String email, int amount) {
+    Account currUser = accountRepo.findByEmail(email);
+    currUser.addCredit(amount);
+  }
 }
