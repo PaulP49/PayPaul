@@ -1,6 +1,7 @@
 @import "main.css";
 @import "contentDisplay.css";
 @import "tableView.css";
+@import "headerWithAdd.css";
 
 .column-label {
     color: var(--blue-acc-color);

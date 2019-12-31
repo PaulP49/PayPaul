@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .loginPage("/login")
             .failureUrl("/login?error=true")
             .failureHandler(getCustomAuthFailureHandler())
-            .defaultSuccessUrl("/paymentMethods")
+            .defaultSuccessUrl("/transactions")
             .usernameParameter("email")
             .passwordParameter("password_hash")
             .and()

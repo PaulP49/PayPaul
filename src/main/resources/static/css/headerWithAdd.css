@@ -1,0 +1,21 @@
+.fa-plus {
+
+}
+
+.add-button {
+    background-color: var(--blue-acc-color);
+    color: var(--white-acc-color);
+    border: 0;
+    height: 33px;
+    font-size: large;
+    float: right;
+    cursor: pointer;
+}
+
+.header-text {
+    float: left;
+}
+
+.header-container {
+    padding-bottom: 50px;
+}

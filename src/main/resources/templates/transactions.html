@@ -24,7 +24,12 @@
     <div class="main-content">
         <div class="outer-container">
             <div class="table-container">
-                <h3 class="form_header">Meine Transaktionen</h3>
+                <div class="header-container">
+                    <h3 class="form_header">
+                        <div class="header-text">Meine Transaktionen</div>
+                        <button onclick="window.location.href='/sendMoney'" class="add-button"><i class="fas fa-plus"></i> Geld senden</button>
+                    </h3>
+                </div>
                 <nav>
                     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Gesendet</a>
