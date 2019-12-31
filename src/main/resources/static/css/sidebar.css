@@ -48,3 +48,9 @@
     float: right;
     padding-right: 8px;
 }
+
+.logout-link {
+    bottom: 6px;
+    position: absolute;
+    font-size: medium !important;
+}
