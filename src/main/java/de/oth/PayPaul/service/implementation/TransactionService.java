@@ -82,27 +82,27 @@ public class TransactionService implements ITransactionService {
 
   @Override
   @Transactional
-  public Transaction requestTransaction(TransactionDTO transaction) throws TransactionRequestException {
+  public Transaction requestTransaction(TransactionDTO transactionDTO) throws TransactionRequestException {
     try {
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       Account sender = accountRepo.findById(auth.getName()).orElseThrow(
               () -> new TransactionRequestException("Authentifizierungsfehler beim Erstellen der Transaktion")
       );
-      Account receiver = accountRepo.findById(transaction.getReceiver()).orElseThrow(
+      Account receiver = accountRepo.findById(transactionDTO.getReceiver()).orElseThrow(
               () -> new TransactionRequestException("Empfänger konnte nicht gefunden werden")
       );
-      Transaction transaction1 = new Transaction();
-      transaction1.setSender(sender);
-      transaction1.setReceiver(sender);
-      transaction1.setAmount(transaction.getAmount());
-      transaction1.setPaymentReference(transaction.getPaymentReference());
+      Transaction transaction = new Transaction();
+      transaction.setSender(sender);
+      transaction.setReceiver(receiver);
+      transaction.setAmount(transactionDTO.getAmount());
+      transaction.setPaymentReference(transactionDTO.getPaymentReference());
 
-      sender.removeCredit(transaction.getAmount());
-      receiver.addCredit(transaction.getAmount());
+      sender.removeCredit(transactionDTO.getAmount());
+      receiver.addCredit(transactionDTO.getAmount());
 
-      transactionRepo.save(transaction1);
-      sendNotificationsOnNewTransaction(transaction1);
-      return transaction1;
+      transactionRepo.save(transaction);
+      sendNotificationsOnNewTransaction(transaction);
+      return transaction;
     } catch (Exception e) {
       throw new TransactionRequestException(e.getMessage());
     }
