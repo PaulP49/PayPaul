@@ -18,7 +18,7 @@ Um eine neue Transaktion anzulegen:
 Authorisierung: Basic Auth header  
 `Basic <email:password(base64 encoded)>`
 
-Die benötigten Daten bitte als JSON im body angeben:  
+Die benötigten Daten bitte als JSON im body angeben (TransactionDTO):  
 ```json
 {
  "receiver": "dev@dev.de",
@@ -26,10 +26,11 @@ Die benötigten Daten bitte als JSON im body angeben:
  "paymentReference": "test"
 }
 ```  
-  
-  
+<br/>
+
 Um Transaktionsbestätigungen zu erhalten, muss eine Payment Notification angelegt werden.
-Bei Eintritt der ausgewählten Events wird an die angegebene URL ein POST-Request geschickt mit Daten von der Form:
+Bei Eintritt der ausgewählten Events wird an die angegebene URL ein POST-Request geschickt mit Daten von der Form (CompletedTransactionDTO):
+
 ```json
 {
   "id" : 17,
@@ -38,5 +39,11 @@ Bei Eintritt der ausgewählten Events wird an die angegebene URL ein POST-Reques
   "paymentReference" : "test",
   "amount" : 100
 }
-```  
+```
+
+<br/>
+
+In `paypaul-dtos.jar` befinden sich die beiden verwendeten DTO-Klassen.
+
+  
 
