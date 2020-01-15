@@ -109,14 +109,22 @@ public class AssetsController {
     List<BankAccount> bankAccounts = assetsService.getAllBankAccountsForUser(email);
     List<CreditCard> creditCards = assetsService.getAllCreditCardsForUser(email);
     ArrayList<String> paymentMethodSelection = new ArrayList<String>();
-    for(BankAccount bankAccount : bankAccounts) {
-      String iban = bankAccount.getIBAN();
-      paymentMethodSelection.add("Bankkonto IBAN: ***" + iban.substring(iban.length() - 3));
-    }
-    for(CreditCard creditCard : creditCards) {
-      String number = Long.toString(creditCard.getCardNumber());
-      paymentMethodSelection.add(creditCard.getCardType() + " Nr: ***" + number.substring(number.length() - 3));
-    }
+    bankAccounts.forEach(b -> {
+      if (b.isActive()) {
+        String iban = b.getIBAN();
+        if (iban.length() > 3)
+          iban = "***" + iban.substring(iban.length() - 3);
+        paymentMethodSelection.add("Bankkonto IBAN: " + iban);
+      }
+    });
+    creditCards.forEach(c -> {
+      if (c.isActive()) {
+        String number = Long.toString(c.getCardNumber());
+        if (number.length() > 3)
+          number = "***" + number.substring(number.length() - 3);
+        paymentMethodSelection.add(c.getCardType() + " Nr: " + number);
+      }
+    });
     model.addAttribute("paymentMethods", paymentMethodSelection);
     model.addAttribute("amount", 0);
     model.addAttribute("credit", accountService.getCreditByEmail(email));

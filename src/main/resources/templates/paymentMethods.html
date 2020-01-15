@@ -47,7 +47,7 @@
                         <tr th:each="bankAccount : ${bankAccounts}">
                             <td>Bankkonto</td>
                             <td th:text="${bankAccount.IBAN}"></td>
-                            <td th:text="${bankAccount.payLimit} + '€'"></td>
+                            <td th:text="${bankAccount.payLimit != null} ? ${bankAccount.payLimit} + '€' : '-'"></td>
                             <td class="material-switch pull-right">
                                 <input th:id="'active-switch-'+${bankAccount.id}" th:name="'active-switch-'+${bankAccount.id}" th:checked="${bankAccount.active}" type="checkbox"/>
                                 <label th:for="'active-switch-'+${bankAccount.id}" class="label-default"></label>
@@ -56,7 +56,7 @@
                         <tr th:each="creditCard : ${creditCards}">
                             <td>Kreditkarte</td>
                             <td th:text="${creditCard.cardNumber}"></td>
-                            <td th:text="${creditCard.payLimit} + '€'"></td>
+                            <td th:text="${creditCard.payLimit != null} ? ${creditCard.payLimit} + '€' : '-'"></td>
                             <td class="material-switch pull-right">
                                 <input th:id="'active-switch-'+${creditCard.id}" th:name="'active-switch-'+${creditCard.id}" th:checked="${creditCard.active}" type="checkbox"/>
                                 <label th:for="'active-switch-'+${creditCard.id}" class="label-default"></label>

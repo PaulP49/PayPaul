@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -30,8 +31,10 @@ public class AccountController {
   }
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
-  public String register(@ModelAttribute("account") Account account, RedirectAttributes redirectAttributes) {
+  public String register(@ModelAttribute("account") Account account, @RequestParam("password_confirm") String passwordConfirm, RedirectAttributes redirectAttributes) {
     try {
+      if (!account.getPasswordHash().equals(passwordConfirm))
+        throw new Exception("Passwörter müssen identisch sein.");
       accountService.createNewAccount(account);
       redirectAttributes.addFlashAttribute("successMessage",
               new CustomResponse("Account wurde erfolgreich erstellt!", "Sie können sich jetzt mit ihren Logindetails anmelden."));

@@ -47,7 +47,8 @@
             </label>
             <label class="input_label">
                 <p class="label-txt">Passwort bestätigen</p>
-                <input type="password" class="input" placeholder="*" required>
+                <!--/*@thymesVar id="password_confirm" type="String"*/-->
+                <input th:value="${password_confirm}" name="password_confirm" type="password" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
