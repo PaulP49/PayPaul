@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface ITransactionService {
-  public Map<String, List<Transaction>> getAllTransactionsForUser(String email);
-  public Account getCurrentUser(String email);
-  public void createNewTransactionFromUser(String email, Transaction transaction) throws Exception;
-  public Transaction requestTransaction(TransactionDTO transaction) throws TransactionRequestException;
+  Map<String, List<Transaction>> getAllTransactionsForUser(String email);
+  Account getCurrentUser(String email);
+  void createNewTransactionFromUser(String email, Transaction transaction) throws Exception;
+  Transaction requestTransaction(TransactionDTO transaction) throws TransactionRequestException;
 }

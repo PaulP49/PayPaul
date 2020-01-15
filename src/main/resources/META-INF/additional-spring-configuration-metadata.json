@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "spring.queries.users-query",
+      "type": "java.lang.String",
+      "description": "Query for user based on given login credentials."
+    },
+    {
+      "name": "spring.queries.roles-query",
+      "type": "java.lang.String",
+      "description": "Dummy-Query for user role. Every user gets the role 'ROLE_USER'."
+    }
+  ]
+}

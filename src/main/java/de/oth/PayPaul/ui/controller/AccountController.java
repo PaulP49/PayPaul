@@ -5,8 +5,6 @@ import de.oth.PayPaul.service.implementation.AccountService;
 import de.oth.PayPaul.service.interfaces.IAccountService;
 import de.oth.PayPaul.ui.model.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,7 +35,7 @@ public class AccountController {
         throw new Exception("Passwörter müssen identisch sein.");
       accountService.createNewAccount(account);
       redirectAttributes.addFlashAttribute("successMessage",
-              new CustomResponse("Account wurde erfolgreich erstellt!", "Sie können sich jetzt mit ihren Logindetails anmelden."));
+              new CustomResponse("Account wurde erfolgreich erstellt!", "Sie können sich jetzt mit Ihren Logindetails anmelden."));
       return "redirect:/login";
     } catch(Exception e) {
       redirectAttributes.addFlashAttribute("errorMessage",

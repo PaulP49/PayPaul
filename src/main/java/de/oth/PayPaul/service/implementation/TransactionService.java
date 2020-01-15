@@ -1,11 +1,11 @@
 package de.oth.PayPaul.service.implementation;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import de.oth.PayPaul.persistence.model.Account;
 import de.oth.PayPaul.persistence.model.PaymentNotification;
 import de.oth.PayPaul.persistence.model.Transaction;
+import de.oth.PayPaul.persistence.model.TransactionStatus;
 import de.oth.PayPaul.persistence.repository.AccountRepository;
 import de.oth.PayPaul.persistence.repository.PaymentNotificationRepository;
 import de.oth.PayPaul.persistence.repository.TransactionRepository;
@@ -13,7 +13,6 @@ import de.oth.PayPaul.service.interfaces.ITransactionService;
 import de.oth.PayPaul.service.model.CompletedTransactionDTO;
 import de.oth.PayPaul.service.model.TransactionDTO;
 import de.oth.PayPaul.service.model.TransactionRequestException;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +22,6 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -108,32 +106,38 @@ public class TransactionService implements ITransactionService {
     }
   }
 
-  private void sendNotificationsOnNewTransaction(Transaction transaction) throws URISyntaxException, IOException, InterruptedException {
-    List<PaymentNotification> notificationsSender = notificationRepo.findAllForSender(transaction.getSender().getEmail());
-    List<PaymentNotification> notificationsReceiver = notificationRepo.findAllForReceiver(transaction.getReceiver().getEmail());
+  private void sendNotificationsOnNewTransaction(Transaction transaction) {
+    try {
+      List<PaymentNotification> notificationsSender = notificationRepo.findAllForSender(transaction.getSender().getEmail());
+      List<PaymentNotification> notificationsReceiver = notificationRepo.findAllForReceiver(transaction.getReceiver().getEmail());
 
-    if (notificationsSender.isEmpty() && notificationsReceiver.isEmpty())
-      return;
+      if (!notificationsSender.isEmpty() || !notificationsReceiver.isEmpty()) {
+        HttpClient client = HttpClient.newHttpClient();
+        ObjectWriter writer = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        CompletedTransactionDTO transactionDTO = new CompletedTransactionDTO(transaction.getId(),
+                transaction.getSender().getEmail(), transaction.getReceiver().getEmail(),
+                transaction.getAmount(), transaction.getPaymentReference());
+        String jsonTransaction = writer.writeValueAsString(transactionDTO);
 
-    HttpClient client = HttpClient.newHttpClient();
-    ObjectWriter writer = new ObjectMapper().writer().withDefaultPrettyPrinter();
-    CompletedTransactionDTO transactionDTO = new CompletedTransactionDTO(transaction.getId(),
-            transaction.getSender().getEmail(), transaction.getReceiver().getEmail(),
-            transaction.getAmount(), transaction.getPaymentReference());
-    String jsonTransaction = writer.writeValueAsString(transactionDTO);
-
-    for(PaymentNotification notification : notificationsSender) {
-      postNotification(client, notification.getTargetUrl().toURI(), jsonTransaction);
-    }
-    for(PaymentNotification notification : notificationsReceiver) {
-      postNotification(client, notification.getTargetUrl().toURI(), jsonTransaction);
+        for (PaymentNotification notification : notificationsSender) {
+          postNotification(client, notification.getTargetUrl().toURI(), jsonTransaction);
+        }
+        for (PaymentNotification notification : notificationsReceiver) {
+          postNotification(client, notification.getTargetUrl().toURI(), jsonTransaction);
+        }
+      }
+      transaction.setTransactionStatus(TransactionStatus.Completed);
+      transactionRepo.save(transaction);
+    } catch(URISyntaxException|IOException|InterruptedException u) {
+      transaction.setTransactionStatus(TransactionStatus.Failed);
+      transactionRepo.save(transaction);
     }
   }
 
-  private HttpResponse<String> postNotification(HttpClient client, URI target, String body) throws IOException, InterruptedException {
+  private void postNotification(HttpClient client, URI target, String body) throws IOException, InterruptedException {
     HttpRequest request = HttpRequest.newBuilder()
             .uri(target)
             .POST(HttpRequest.BodyPublishers.ofString(body)).build();
-    return client.send(request, HttpResponse.BodyHandlers.ofString());
+    client.send(request, HttpResponse.BodyHandlers.ofString());
   }
 }

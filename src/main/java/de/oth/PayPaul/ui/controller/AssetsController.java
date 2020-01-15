@@ -2,7 +2,6 @@ package de.oth.PayPaul.ui.controller;
 
 import de.oth.PayPaul.persistence.model.BankAccount;
 import de.oth.PayPaul.persistence.model.CreditCard;
-import de.oth.PayPaul.persistence.model.PaymentMethod;
 import de.oth.PayPaul.service.implementation.AssetsService;
 import de.oth.PayPaul.service.interfaces.IAccountService;
 import de.oth.PayPaul.service.interfaces.IAssetsService;
@@ -49,7 +48,7 @@ public class AssetsController {
   }
 
   @RequestMapping(value = "/paymentMethods/addNew", method = RequestMethod.GET)
-  public String getNewPaymentMethodView(Model model) { ;
+  public String getNewPaymentMethodView(Model model) {
     model.addAttribute("bankAccount", new BankAccount());
     model.addAttribute("creditCard", new CreditCard());
 
