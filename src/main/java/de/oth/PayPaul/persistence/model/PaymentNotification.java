@@ -1,10 +1,8 @@
 package de.oth.PayPaul.persistence.model;
 
 import org.springframework.data.annotation.AccessType;
-
 import javax.persistence.*;
 import java.net.URL;
-import java.util.List;
 import java.util.Objects;
 
 @Entity

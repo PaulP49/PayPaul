@@ -7,14 +7,10 @@ import de.oth.PayPaul.persistence.model.PaymentMethod;
 import de.oth.PayPaul.persistence.repository.AccountRepository;
 import de.oth.PayPaul.persistence.repository.PaymentMethodRepository;
 import de.oth.PayPaul.service.interfaces.IAssetsService;
-import net.bytebuddy.utility.JavaConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class AssetsService implements IAssetsService {
