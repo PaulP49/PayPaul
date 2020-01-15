@@ -34,12 +34,22 @@ public class AssetsService implements IAssetsService {
 
   @Override
   public List<CreditCard> getAllCreditCardsForUser(String email) {
-    return paymentMethodRepo.findAllCreditCardsForUser(email);
+    List<CreditCard> creditCards = paymentMethodRepo.findAllCreditCardsForUser(email);
+    creditCards.forEach(x -> {
+      if (x.getPayLimit() == Integer.MAX_VALUE)
+        x.setPayLimit(null);
+    });
+    return creditCards;
   }
 
   @Override
   public List<BankAccount> getAllBankAccountsForUser(String email) {
-    return paymentMethodRepo.findAllBankAccountsForUser(email);
+    List<BankAccount> bankAccounts = paymentMethodRepo.findAllBankAccountsForUser(email);
+    bankAccounts.forEach(x -> {
+      if (x.getPayLimit() == Integer.MAX_VALUE)
+        x.setPayLimit(null);
+    });
+    return bankAccounts;
   }
 
   @Override
@@ -49,6 +59,8 @@ public class AssetsService implements IAssetsService {
         Account account = accountRepo.findById(email).orElseThrow(
                 () -> new Exception("Authentifizierungsproblem")
         );
+        if (bankAccount.getPayLimit() == null)
+          bankAccount.setPayLimit(Integer.MAX_VALUE);
         paymentMethodRepo.save(bankAccount);
         account.addPaymentMethod(bankAccount);
     }
@@ -61,6 +73,8 @@ public class AssetsService implements IAssetsService {
       Account account = accountRepo.findById(email).orElseThrow(
               () -> new Exception("Authentifizierungsproblem")
       );
+      if (creditCard.getPayLimit() == null)
+        creditCard.setPayLimit(Integer.MAX_VALUE);
       paymentMethodRepo.save(creditCard);
       account.addPaymentMethod(creditCard);
     }
