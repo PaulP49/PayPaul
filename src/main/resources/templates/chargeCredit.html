@@ -28,7 +28,7 @@
     <form th:action="@{/chargeCredit}" method="post" spellcheck="false" class="register_form">
         <h3 class="form_header">Guthaben aufladen</h3>
         <label class="input_label">
-            <p class="label-txt">Kreditkartentyp</p>
+            <p class="label-txt">Verwende Zahlungsmethode</p>
             <select name="cardType" class="input" required>
                 <option value="" disabled selected>Bitte wählen</option>
                 <option th:each="i : ${paymentMethods}" th:value="${i}" th:text="${i}"></option>

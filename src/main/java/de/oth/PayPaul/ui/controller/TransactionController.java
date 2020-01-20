@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.websocket.server.PathParam;
+
 @Controller
 public class TransactionController {
 
@@ -43,11 +45,18 @@ public class TransactionController {
   }
 
   @RequestMapping(value = "/sendMoney", method = RequestMethod.GET)
-  public String getSendMoneyView(Model model) {
+  public String getSendMoneyView(Model model, @RequestParam(value = "receiver", required = false) String receiver, @RequestParam(value = "amount", required = false) Integer amount, @RequestParam(value = "paymentReference", required = false) String paymentReference) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     Transaction transaction = new Transaction();
     transaction.setSender(transactionService.getCurrentUser(auth.getName()));
-    transaction.setReceiver(new Account());
+    Account account = new Account();
+    if (receiver != null)
+      account.setEmail(receiver);
+    if (amount != null)
+      transaction.setAmount(amount);
+    if (paymentReference != null)
+      transaction.setPaymentReference(paymentReference);
+    transaction.setReceiver(account);
     model.addAttribute("transaction", transaction);
     model.addAttribute("credit", accountService.getCreditByEmail(auth.getName()));
 
