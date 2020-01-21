@@ -18,7 +18,7 @@ Nach diesen Schritten ist Ihr Account bereit, um für Transaktionen verwendet zu
  <br/><br/>
  Auf PayPaul greifen folgende Partnerprojekte zu: <br/>
  Bazaar: <http://im-codd:8825/> <br/>
- Packlon: <http://im-codd:8825/>
+ Packlon: <http://im-codd:8820/>
  
  PayPaul verwendet Bazaar, um angefragte Zahlungen zu bestätigen. Über eine Payment Notification, festgelegt im PayPaul Account von Bazaar werden Benachrichtigungen für eingehende Zahlungen an das Partnersystem versandt.
  <br/><br/>
@@ -64,7 +64,23 @@ Bei Eintritt der ausgewählten Events wird an die angegebene URL ein POST-Reques
 
 In `paypaul-dtos.jar` befinden sich die beiden verwendeten DTO-Klassen TransactionDTO und CompletedTransactionDTO.
 
-
-
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Es folgen die überarbeiteten Modelle von Meilenstein 1.<br/>
+<mark style="background-color: red">Gelöschte Elemente sind rot markiert. </mark><br/>
+<mark style="background-color: limegreen">Neu hinzugefügte Elemente sind grün markiert. </mark>
   
 
