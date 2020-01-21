@@ -8,13 +8,14 @@ import de.oth.PayPaul.persistence.repository.AccountRepository;
 import de.oth.PayPaul.persistence.repository.PaymentMethodRepository;
 import de.oth.PayPaul.service.interfaces.IAssetsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
+@Scope("singleton")
 public class AssetsService implements IAssetsService {
   private PaymentMethodRepository paymentMethodRepo;
   private AccountRepository accountRepo;
