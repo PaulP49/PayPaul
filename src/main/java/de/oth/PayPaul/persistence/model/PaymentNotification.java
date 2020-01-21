@@ -7,11 +7,7 @@ import java.util.Objects;
 
 @Entity
 @AccessType(AccessType.Type.FIELD)
-public class PaymentNotification {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private int id;
-
+public class PaymentNotification extends BaseEntity<Integer> {
   private URL targetUrl;
 
   private boolean forIncomingPayments;
@@ -19,14 +15,6 @@ public class PaymentNotification {
   private boolean forOutgoingPayments;
 
   private boolean active = true;
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public URL getTargetUrl() {
     return targetUrl;
@@ -58,17 +46,5 @@ public class PaymentNotification {
 
   public void setActive(boolean active) {
     this.active = active;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass())
-      return false;
-    return Objects.equals(id, ((PaymentNotification) o).id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Integer.hashCode(id);
   }
 }

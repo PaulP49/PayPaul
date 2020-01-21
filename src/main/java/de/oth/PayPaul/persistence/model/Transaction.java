@@ -9,11 +9,7 @@ import java.util.Objects;
 
 @Entity
 @AccessType(AccessType.Type.FIELD)
-public class Transaction {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private int id;
-
+public class Transaction extends BaseEntity<Integer> {
   private String paymentReference;
 
   @Min(value = 0, message = "Amount must be greater than null")
@@ -29,14 +25,6 @@ public class Transaction {
   @NotNull
   @Enumerated(EnumType.STRING)
   private TransactionStatus transactionStatus = TransactionStatus.InProgress;
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public String getPaymentReference() {
     return paymentReference;
@@ -76,18 +64,5 @@ public class Transaction {
 
   public void setTransactionStatus(TransactionStatus transactionStatus) {
     this.transactionStatus = transactionStatus;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass())
-      return false;
-    return Objects.equals(id, ((Transaction) o).id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Integer.hashCode(id);
   }
 }
