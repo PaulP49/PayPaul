@@ -1,4 +1,4 @@
-.submit_button {
+.submit-button {
     background: var(--white-acc-color);
     font-weight: bold;
     color: var(--acc-color);
@@ -8,14 +8,14 @@
     cursor: pointer;
     transition: ease .3s;
 }
-.submit_button:hover {
+.submit-button:hover {
     background: var(--blue-acc-color);
     color: var(--white-acc-color);
 }
-.login_container {
+.login-container {
     padding: 0 2rem;
 }
-.register_form {
+.register-form {
     width: 60%;
     margin: 60px auto;
     background: var(--acc-color);
@@ -24,7 +24,7 @@
     -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
     box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
 }
-.input_label {
+.input-label {
     display: block;
     position: relative;
     margin: 40px 0px;
@@ -86,7 +86,7 @@
 .label-filled {
     color: var(--blue-acc-color);
 }
-.form_header {
+.form-header {
     color: var(--white-acc-color);
     text-align: left;
     border-bottom: 50px;

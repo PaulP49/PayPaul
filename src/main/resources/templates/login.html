@@ -14,35 +14,35 @@
 <body>
     <div class="container h-100">
         <div class="d-flex justify-content-center h-100">
-            <div class="user_card">
+            <div class="user-card">
                 <div class="d-flex justify-content-center">
-                    <div class="brand_logo_container">
-                        <img src="../static/img/PayPaulLogo.jpg" th:src="@{/img/PayPaulLogo.jpg}" class="brand_logo" alt="Logo">
+                    <div class="brand-logo-container">
+                        <img src="../static/img/PayPaulLogo.jpg" th:src="@{/img/PayPaulLogo.jpg}" class="brand-logo" alt="Logo">
                     </div>
                 </div>
-                <div class="d-flex justify-content-center form_container">
-                    <form th:action="@{/login}" method="post" class="login_form">
+                <div class="d-flex justify-content-center form-container">
+                    <form th:action="@{/login}" method="post" class="login-form">
                         <div class="input-group mb-3">
-                            <div class="input-group-append blue_logo">
+                            <div class="input-group-append blue-logo">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" name="email" class="form-control input_user" value="" placeholder="Email">
+                            <input type="text" name="email" class="form-control input-user" value="" placeholder="Email">
                         </div>
                         <div class="input-group mb-2">
-                            <div class="input-group-append blue_logo">
+                            <div class="input-group-append blue-logo">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" name="password_hash" class="form-control input_pass" value="" placeholder="Passwort">
+                            <input type="password" name="password_hash" class="form-control input-pass" value="" placeholder="Passwort">
                         </div>
-                        <div class="d-flex justify-content-center mt-3 login_container">
-                            <button type="Submit" name="Submit" class="btn submit_button login_btn">Einloggen</button>
+                        <div class="d-flex justify-content-center mt-3 login-container">
+                            <button type="Submit" name="Submit" class="btn submit-button login-btn">Einloggen</button>
                         </div>
                     </form>
                 </div>
 
                 <div class="mt-4">
-                    <div class="d-flex justify-content-center links white_text">
-                        Noch keinen Account? <a th:href="@{/register}" class="ml-2 blue_text">Jetzt registrieren</a>
+                    <div class="d-flex justify-content-center links white-text">
+                        Noch keinen Account? <a th:href="@{/register}" class="ml-2 blue-text">Jetzt registrieren</a>
                     </div>
                 </div>
             </div>

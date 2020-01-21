@@ -13,8 +13,8 @@
 </head>
 <body>
 <div class="sidenav">
-    <div class="brand_logo_container">
-        <img src="../static/img/PayPaulLogo.jpg" th:src="@{/img/PayPaulLogo.jpg}" class="brand_logo" alt="Logo">
+    <div class="brand-logo-container">
+        <img src="../static/img/PayPaulLogo.jpg" th:src="@{/img/PayPaulLogo.jpg}" class="brand-logo" alt="Logo">
     </div>
     <a class="menu-link" th:href="@{/transactions}">Transaktionen</a>
     <a class="menu-link" th:href="@{/paymentMethods}">Zahlungsmethoden</a>
@@ -25,9 +25,9 @@
     <a th:href="@{/logout}" class="logout-link menu-link">Ausloggen</a>
 </div>
 <div class="main-content">
-    <form th:action="@{/chargeCredit}" method="post" spellcheck="false" class="register_form">
-        <h3 class="form_header">Guthaben aufladen</h3>
-        <label class="input_label">
+    <form th:action="@{/chargeCredit}" method="post" spellcheck="false" class="register-form">
+        <h3 class="form-header">Guthaben aufladen</h3>
+        <label class="input-label">
             <p class="label-txt">Verwende Zahlungsmethode</p>
             <select name="cardType" class="input" required>
                 <option value="" disabled selected>Bitte wählen</option>
@@ -37,7 +37,7 @@
                 <div class="line"></div>
             </div>
         </label>
-        <label class="input_label">
+        <label class="input-label">
             <p class="label-txt">Menge (in €)</p>
             <!--/*@thymesVar id="amount" type="int"*/-->
             <input th:name="amount" type="number" min="1" class="input" placeholder="*" required>
@@ -45,8 +45,8 @@
                 <div class="line"></div>
             </div>
         </label>
-        <div class="d-flex justify-content-center mt-3 login_container">
-            <button type="Submit" name="Submit" class="btn submit_button">Absenden</button>
+        <div class="d-flex justify-content-center mt-3 login-container">
+            <button type="Submit" name="Submit" class="btn submit-button">Absenden</button>
         </div>
     </form>
     <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
