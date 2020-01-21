@@ -8,7 +8,7 @@ $(document).ready(function(){
         labelText.removeClass('label-active');
     });
 
-    $(".submit_button").on("click", function() {
+    $(".submit-button").on("click", function() {
         let activeTab = $('.tab-pane.active');
         if(activeTab.is('#pane-bankAccount')) {
             $("#bankAccountForm").submit();

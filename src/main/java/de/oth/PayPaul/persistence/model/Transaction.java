@@ -16,10 +16,10 @@ public class Transaction extends BaseEntity<Integer> {
   @Max(value = Integer.MAX_VALUE, message = "Choose a smaller number")
   private Integer amount;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   private Account sender;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   private Account receiver;
 
   @NotNull

@@ -4,10 +4,13 @@ import de.oth.PayPaul.persistence.model.Account;
 import de.oth.PayPaul.persistence.repository.AccountRepository;
 import de.oth.PayPaul.service.interfaces.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Scope("singleton")
 public class AccountService implements IAccountService {
   private AccountRepository accountRepo;
   private BCryptPasswordEncoder passwordEncoder;
@@ -22,6 +25,8 @@ public class AccountService implements IAccountService {
     this.accountRepo = accountRepo;
   }
 
+  @Override
+  @Transactional
   public void createNewAccount(Account account) throws Exception {
     account.setPasswordHash(passwordEncoder.encode(account.getPasswordHash()));
     if (!accountRepo.existsById(account.getEmail())) {
@@ -31,6 +36,7 @@ public class AccountService implements IAccountService {
     }
   }
 
+  @Override
   public int getCreditByEmail(String email) {
     return accountRepo.findCreditByEmail(email);
   }

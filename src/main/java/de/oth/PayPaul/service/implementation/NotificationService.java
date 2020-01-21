@@ -6,12 +6,13 @@ import de.oth.PayPaul.persistence.repository.AccountRepository;
 import de.oth.PayPaul.persistence.repository.PaymentNotificationRepository;
 import de.oth.PayPaul.service.interfaces.INotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Scope("singleton")
 public class NotificationService implements INotificationService {
   private PaymentNotificationRepository notificationRepo;
   private AccountRepository accountRepo;

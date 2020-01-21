@@ -85,7 +85,7 @@
     transition: ease .6s;
 }
 
-.brand_logo_container {
+.brand-logo-container {
     margin: auto;
     position: relative;
     height: 170px;
@@ -94,7 +94,7 @@
     text-align: center;
     padding-bottom: 170px;
 }
-.brand_logo {
+.brand-logo {
     height: 150px;
     width: 150px;
     border-radius: 50%;

@@ -15,37 +15,37 @@
 </head>
     <body>
         <!--/*@thymesVar id="account" type="de.oth.PayPaul.persistence.model.Account"*/-->
-        <form th:action="@{/register}" th:object="${account}" method="post" spellcheck="false" class="register_form">
-            <h3 class="form_header">Registrieren</h3>
-            <label class="input_label">
+        <form th:action="@{/register}" th:object="${account}" method="post" spellcheck="false" class="register-form">
+            <h3 class="form-header">Registrieren</h3>
+            <label class="input-label">
                 <p class="label-txt">Email</p>
                 <input th:field="*{email}" type="email" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
-            <label class="input_label">
+            <label class="input-label">
                 <p class="label-txt">Vorname</p>
                 <input th:field="*{firstName}" type="text" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
-            <label class="input_label">
+            <label class="input-label">
                 <p class="label-txt">Nachname</p>
                 <input th:field="*{lastName}" type="text" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
-            <label class="input_label">
+            <label class="input-label">
                 <p class="label-txt">Passwort</p>
                 <input th:field="*{passwordHash}" type="password" class="input" placeholder="*" required>
                 <div class="line-box">
                     <div class="line"></div>
                 </div>
             </label>
-            <label class="input_label">
+            <label class="input-label">
                 <p class="label-txt">Passwort bestätigen</p>
                 <!--/*@thymesVar id="password_confirm" type="String"*/-->
                 <input th:value="${password_confirm}" name="password_confirm" type="password" class="input" placeholder="*" required>
@@ -53,8 +53,8 @@
                     <div class="line"></div>
                 </div>
             </label>
-            <div class="d-flex justify-content-center mt-3 login_container">
-                <button type="Submit" name="Submit" class="btn submit_button">Bestätigen</button>
+            <div class="d-flex justify-content-center mt-3 login-container">
+                <button type="Submit" name="Submit" class="btn submit-button">Bestätigen</button>
             </div>
         </form>
         <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->

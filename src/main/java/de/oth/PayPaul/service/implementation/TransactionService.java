@@ -14,11 +14,11 @@ import de.oth.PayPaul.service.model.CompletedTransactionDTO;
 import de.oth.PayPaul.service.model.TransactionDTO;
 import de.oth.PayPaul.service.model.TransactionRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Scope("singleton")
 public class TransactionService implements ITransactionService {
   private TransactionRepository transactionRepo;
   private AccountRepository accountRepo;

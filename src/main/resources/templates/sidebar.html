@@ -1,0 +1,14 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="de">
+<div class="sidenav" th:fragment="navbar(activetab)">
+    <div class="brand-logo-container">
+        <img src="../static/img/PayPaulLogo.jpg" th:src="@{/img/PayPaulLogo.jpg}" class="brand-logo" alt="Logo">
+    </div>
+    <a class="menu-link" th:classappend="${activetab == 'transactions'} ? 'active-view' : ''" th:href="@{/transactions}">Transaktionen</a>
+    <a class="menu-link" th:classappend="${activetab == 'paymentMethods'} ? 'active-view' : ''" th:href="@{/paymentMethods}">Zahlungsmethoden</a>
+    <a class="menu-link" th:classappend="${activetab == 'paymentNotifications'} ? 'active-view' : ''" th:href="@{/paymentNotifications}">Payment Notifications</a>
+    <a class="menu-link" th:classappend="${activetab == 'sendMoney'} ? 'active-view' : ''" th:href="@{/sendMoney}">Geld senden</a>
+    <a class="menu-link" th:classappend="${activetab == 'chargeCredit'} ? 'active-view' : ''" th:href="@{/chargeCredit}">Guthaben aufladen</a>
+    <!--/*@thymesVar id="credit" type="int"*/-->
+    <p class="credit-info" th:text="'Guthaben: ' + ${credit} + '€'"></p>
+    <a th:href="@{/logout}" class="logout-link menu-link">Ausloggen</a>
+</div>

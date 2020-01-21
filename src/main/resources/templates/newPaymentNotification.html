@@ -17,30 +17,19 @@
     <script type="text/javascript" th:src="@{/js/toast.js}"></script>
 </head>
     <body>
-        <div class="sidenav">
-            <div class="brand_logo_container">
-                <img src="../static/img/PayPaulLogo.jpg" th:src="@{/img/PayPaulLogo.jpg}" class="brand_logo" alt="Logo">
-            </div>
-            <a class="menu-link" th:href="@{/transactions}">Transaktionen</a>
-            <a class="menu-link" th:href="@{/paymentMethods}">Zahlungsmethoden</a>
-            <a class="menu-link active-view" th:href="@{/paymentNotifications}">Payment Notifications</a>
-            <a class="menu-link" th:href="@{/sendMoney}">Geld senden</a>
-            <a class="menu-link" th:href="@{/chargeCredit}">Guthaben aufladen</a>
-            <p class="credit-info" th:text="'Guthaben: ' + ${credit} + '€'"></p>
-            <a th:href="@{/logout}" class="logout-link menu-link">Ausloggen</a>
-        </div>
+        <div th:replace="sidebar.html :: navbar(${'paymentNotifications'})"></div>
         <div class="main-content">
             <!--/*@thymesVar id="paymentNotification" type="de.oth.PayPaul.persistence.model.PaymentNotification"*/-->
-            <form th:action="@{/paymentNotifications/addNew}" th:object="${paymentNotification}" method="post" spellcheck="false" class="register_form">
-                <h3 class="form_header">Payment Notification hinzufügen</h3>
-                <label class="input_label">
+            <form th:action="@{/paymentNotifications/addNew}" th:object="${paymentNotification}" method="post" spellcheck="false" class="register-form">
+                <h3 class="form-header">Payment Notification hinzufügen</h3>
+                <label class="input-label">
                     <p class="label-txt">Ziel-URL (POST-Request)</p>
                     <input th:field="*{targetUrl}" type="url" class="input" placeholder="*" required>
                     <div class="line-box">
                         <div class="line"></div>
                     </div>
                 </label>
-                <label class="input_label">
+                <label class="input-label">
                     <p class="label-txt">Aktiviert für</p>
                     <select id="paymentDirSelect" class="input selectpicker" title="Bitte wählen" data-style="option-picker" data-width="100%" multiple>
                         <option class="option-picker" value="Incoming">Eingehende Zahlungen</option>
@@ -52,8 +41,8 @@
                 </label>
                 <input id="inputForIncomingPayments" th:field="*{forIncomingPayments}" type="hidden" value="false">
                 <input id="inputForOutgoingPayments" th:field="*{forOutgoingPayments}" type="hidden" value="false">
-                <div class="d-flex justify-content-center mt-3 login_container">
-                    <button type="Submit" name="Submit" class="btn submit_button">Speichern</button>
+                <div class="d-flex justify-content-center mt-3 login-container">
+                    <button type="Submit" name="Submit" class="btn submit-button">Speichern</button>
                 </div>
             </form>
             <!--/*@thymesVar id="successMessage" type="de.oth.PayPaul.ui.model.CustomResponse"*/-->
