@@ -137,7 +137,7 @@ public class AssetsController {
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       assetsService.chargeCredit(auth.getName(), amount);
       redirectAttributes.addFlashAttribute("successMessage",
-              new CustomResponse(amount + "€ wurden Ihrem Guthaben gutgeschrieben.", "Das Guthaben kann absofort für Transaktionen verwendet werden."));
+              new CustomResponse(amount + "€ wurden Ihrem Guthaben gutgeschrieben.", "Das Guthaben kann ab sofort für Transaktionen verwendet werden."));
       return "redirect:/transactions";
     } catch (Exception e) {
       redirectAttributes.addFlashAttribute("errorMessage",

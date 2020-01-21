@@ -15,11 +15,7 @@ import java.util.Objects;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @AccessType(AccessType.Type.FIELD)
-public class PaymentMethod {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private int id;
-
+public class PaymentMethod extends BaseEntity<Integer> {
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private String expiryDate = null;
 
@@ -30,14 +26,6 @@ public class PaymentMethod {
   private boolean active = true;
 
   private boolean blocked = false;
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public String getExpiryDate() {
     return expiryDate;
@@ -69,18 +57,6 @@ public class PaymentMethod {
 
   public void setBlocked(boolean blocked) {
     this.blocked = blocked;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass())
-      return false;
-    return Objects.equals(id, ((PaymentMethod) o).id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Integer.hashCode(id);
   }
 
   @Override

@@ -95,9 +95,7 @@ public class Account {
 
   @Override
   public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass())
-      return false;
-    return Objects.equals(email, ((Account) o).email);
+    return o != null && getClass() == o.getClass() && Objects.equals(email, ((Account) o).email);
   }
 
   @Override
