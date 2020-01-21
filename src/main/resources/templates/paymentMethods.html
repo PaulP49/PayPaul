@@ -13,18 +13,7 @@
     <script type="text/javascript" th:src="@{/js/paymentMethods.js}"></script>
 </head>
 <body>
-    <div class="sidenav">
-        <div class="brand-logo-container">
-            <img src="../static/img/PayPaulLogo.jpg" th:src="@{/img/PayPaulLogo.jpg}" class="brand-logo" alt="Logo">
-        </div>
-        <a class="menu-link" th:href="@{/transactions}">Transaktionen</a>
-        <a class="menu-link active-view" th:href="@{/paymentMethods}">Zahlungsmethoden</a>
-        <a class="menu-link" th:href="@{/paymentNotifications}">Payment Notifications</a>
-        <a class="menu-link" th:href="@{/sendMoney}">Geld senden</a>
-        <a class="menu-link" th:href="@{/chargeCredit}">Guthaben aufladen</a>
-        <p class="credit-info" th:text="'Guthaben: ' + ${credit} + '€'"></p>
-        <a th:href="@{/logout}" class="logout-link menu-link">Ausloggen</a>
-    </div>
+    <div th:replace="sidebar.html :: navbar(${'paymentMethods'})"></div>
     <div class="main-content">
         <div class="outer-container">
             <div class="table-container">
