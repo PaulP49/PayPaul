@@ -1,24 +1,43 @@
 PayPaul
 ================================
 
-Setup
+Dieses Programm wird gehostet auf <http://im-codd:8827/>.
+  
+Tutorial
 --------------------------
-
-Standardmäßig benutzt dieses Programm eine MySQL 5.7 Datenbank.  
-In `application.properties` kann die Datenbankverbindung eingestellt werden.
-
-Nach dem Start des Programms ist PayPaul unter `localhost:9090` zu erreichen.
+Um PayPaul zu verwenden, muss zuerst ein Account angelegt werden.
+Dazu füllen Sie bitte das Registrierungsformular, erreichbar über den Button bei dem Login oder über /register, aus. Nach dem Anlegen des Accounts können Sie sich einloggen.
+<br/>
+<br/>
+Bevor Sie Ihren Account für Transaktionen nutzen können, müssen Sie zuerst eine Zahlungsmethode hinzufügen.
+<br/>
+Danach können Sie über diese Zahlungsmethode Guthaben aufladen.
+<br/><br/>
+Nach diesen Schritten ist Ihr Account bereit, um für Transaktionen verwendet zu werden. Wenn Sie über eingehende oder ausgehende Zahlungen mittels eines Webhooks benachrichtigt werden wollen,
+ können Sie eine Payment Notification anlegen.
+ <br/><br/>
+ Auf PayPaul greifen folgende Partnerprojekte zu: <br/>
+ Bazaar: <http://im-codd:8825/> <br/>
+ Packlon: <http://im-codd:8825/>
+ 
+ PayPaul verwendet Bazaar, um angefragte Zahlungen zu bestätigen. Über eine Payment Notification, festgelegt im PayPaul Account von Bazaar werden Benachrichtigungen für eingehende Zahlungen an das Partnersystem versandt.
+ <br/><br/>
+ Falls die Registrierung nicht funktioniert, können Sie folgenden Default-Account verwenden:
+ <br/>
+ Email: test@dev.de
+<br/>
+Passwort: test123
   
 Transaction API
 --------------------------
-Um eine neue Transaktion anzulegen:
+Um eine neue Transaktion über die API anzulegen:
   
-`POST localhost:9090/requestTransaction`  
+`POST http://im-codd:8827/requestTransaction`  
 
 Authorisierung: Basic Auth header  
 `Basic <email:password(base64 encoded)>`
 
-Die benötigten Daten bitte als JSON im body angeben (TransactionDTO):  
+Die benötigten Daten vom Typ TransactionDTO:  
 ```json
 {
  "receiver": "dev@dev.de",
@@ -29,7 +48,7 @@ Die benötigten Daten bitte als JSON im body angeben (TransactionDTO):
 <br/>
 
 Um Transaktionsbestätigungen zu erhalten, muss eine Payment Notification angelegt werden.
-Bei Eintritt der ausgewählten Events wird an die angegebene URL ein POST-Request geschickt mit Daten von der Form (CompletedTransactionDTO):
+Bei Eintritt der ausgewählten Events wird an die angegebene URL ein POST-Request geschickt mit Daten vom Typ CompletedTransactionDTO:
 
 ```json
 {
@@ -43,7 +62,9 @@ Bei Eintritt der ausgewählten Events wird an die angegebene URL ein POST-Reques
 
 <br/>
 
-In `paypaul-dtos.jar` befinden sich die beiden verwendeten DTO-Klassen.
+In `paypaul-dtos.jar` befinden sich die beiden verwendeten DTO-Klassen TransactionDTO und CompletedTransactionDTO.
+
+
 
   
 
