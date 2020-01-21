@@ -9,7 +9,9 @@ import de.oth.PayPaul.persistence.repository.PaymentMethodRepository;
 import de.oth.PayPaul.service.interfaces.IAssetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -63,7 +65,7 @@ public class AssetsService implements IAssetsService {
   }
 
   @Override
-  @Transactional
+  @Transactional(propagation = Propagation.REQUIRED)
   public void createNewCreditCardForUser(String email,CreditCard creditCard) throws Exception {
     if(!paymentMethodRepo.creditCardExists(email, creditCard.getCardNumber())) {
       Account account = accountRepo.findById(email).orElseThrow(
